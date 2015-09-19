@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="40px" height="36px" viewBox="0 0 40 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Magiczny-Bank" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ORDER---PLUMBER" sketch:type="MSArtboardGroup" transform="translate(-160.000000, -230.000000)" fill="#948E65">
+            <path d="M164,234 L170,234 L174,230 L186,230 L190,234 L196,234 C198.209139,234 200,235.790861 200,238 L200,262 C200,264.209139 198.209139,266 196,266 L164,266 C161.790861,266 160,264.209139 160,262 L160,238 C160,235.790861 161.790861,234 164,234 L164,234 Z M180,240 C174.477153,240 170,244.477153 170,250 C170,255.522847 174.477153,260 180,260 C185.522847,260 190,255.522847 190,250 C190,244.477153 185.522847,240 180,240 L180,240 Z M180,244 C183.313708,244 186,246.686292 186,250 C186,253.313708 183.313708,256 180,256 C176.686292,256 174,253.313708 174,250 C174,246.686292 176.686292,244 180,244 L180,244 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

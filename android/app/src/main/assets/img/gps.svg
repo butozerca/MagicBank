@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Magiczny-Bank" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="ORDER---PLUMBER" sketch:type="MSArtboardGroup" transform="translate(-67.000000, -509.000000)" fill="#7897AA">
+            <g id="Użyj-mojej-lokalizac-+-Shape" sketch:type="MSLayerGroup" transform="translate(67.000000, 509.000000)">
+                <path d="M11,7 C13.209139,7 15,8.790861 15,11 C15,13.209139 13.209139,15 11,15 C8.790861,15 7,13.209139 7,11 C7,8.790861 8.790861,7 11,7 L11,7 Z M2.05,12 L0,12 L0,10 L2.05,10 C2.5,5.83 5.83,2.5 10,2.05 L10,0 L12,0 L12,2.05 C16.17,2.5 19.5,5.83 19.95,10 L22,10 L22,12 L19.95,12 C19.5,16.17 16.17,19.5 12,19.95 L12,22 L10,22 L10,19.95 C5.83,19.5 2.5,16.17 2.05,12 L2.05,12 Z M11,4 C7.13400675,4 4,7.13400675 4,11 C4,14.8659932 7.13400675,18 11,18 C14.8659932,18 18,14.8659932 18,11 C18,7.13400675 14.8659932,4 11,4 L11,4 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>
