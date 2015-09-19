@@ -16,5 +16,6 @@ public class ApplicationContext {
     public List<OperationType> allBankOperations;
     public LocationManager locationManager;
     public Location location;
+    public Location markerLocation;
 
 }
