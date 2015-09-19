@@ -49,3 +49,7 @@ function initMap(lat, lng) {
         title: 'Tu jestem!'
     });
 }
+
+function ShowError(msg) {
+    $("#error").html("Error: " + msg);
+}
