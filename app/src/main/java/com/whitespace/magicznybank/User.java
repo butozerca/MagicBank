@@ -11,7 +11,7 @@ public class User {
     public String name;
     public String surname;
     public String email;
-    public List<OperationType> availableOperations;
+    public List<Integer> availableOperations;
     public List<Operation> operationsHistory;
 
     public User(int id, String name, String surname, String email) {
@@ -19,7 +19,7 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.availableOperations = new LinkedList<OperationType>();
+        this.availableOperations = new LinkedList<Integer>();
         this.operationsHistory = new LinkedList<Operation>();
     }
 }

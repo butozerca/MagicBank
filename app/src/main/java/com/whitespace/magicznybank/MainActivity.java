@@ -103,9 +103,11 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            String operationsJSon = downloadOperationsJSon(user);
+            String operationsJSon = downloadOperationsJSon();
+            String userOperationsJSon = downloadUserOperationsJSon(user);
+
             try {
-                addOperationsForUser(user, operationsJSon);
+                addOperationsForUser(user, operationsJSon, userOperationsJSon);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -130,11 +132,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private String downloadUserJSon() {
-            return downloadJSon("http://busio.com.pl/hackjamnet/user.html");
+            return downloadJSon("http://busio.com.pl/hackjamnet/our/user.html");
         }
 
-        private String downloadOperationsJSon(User user) {
-            return downloadJSon("http://busio.com.pl/hackjamnet/userOperations.html");
+        private String downloadOperationsJSon() {
+            return downloadJSon("http://busio.com.pl/hackjamnet/bank/operations.html");
+        }
+
+        private String downloadUserOperationsJSon(User user) {
+            return downloadJSon("http://busio.com.pl/hackjamnet/our/userOperations.html");
         }
 
         private String downloadJSon(String path) {
@@ -172,8 +178,10 @@ public class MainActivity extends AppCompatActivity {
             return new User(id, name, surname, email);
         }
 
-        private void addOperationsForUser(User user, String operationsJSon) throws JSONException {
-            JSONArray arr = new JSONArray(operationsJSon);
+        private void addOperationsForUser(User user, String operationsJSon, String userOperationsJSon) throws JSONException {
+            JSONArray allOperationsArr = new JSONArray(operationsJSon);
+            //JSONArray allOperationsArr = new JSONArray(operationsJSon);
+
             for (int i = 0; i < arr.length(); i++)
             {
                 int id = arr.getJSONObject(i).getInt("id");
@@ -181,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                 String description = arr.getJSONObject(i).getString("description");
 
                 OperationType operationType = new OperationType(id, name, description);
+
 
                 user.availableOperations.add(operationType);
             }
