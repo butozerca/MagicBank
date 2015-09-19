@@ -2,7 +2,7 @@ function FillUserInfo(id, name, surname, email) {
     $("#userInfo").html(id + "<br>" + name + "<br>" + surname + "<br>" + email);
 }
 
-function appendOperation(name, description, price) {
+function appendService(name, description, price) {
     if(price == -1)
         $("#userOperations").append(name + ":<br>" + description + "<br><br>");
     else
