@@ -19,7 +19,7 @@ public class WebViewHelper {
         });
     }
 
-    public static void ShowError(String msg) {
-        RunJsFunction("ShowError", "'" + msg + "'");
+    public static void LoginError(String msg) {
+        RunJsFunction("LoginError", "'" + msg + "'");
     }
 }

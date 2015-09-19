@@ -68,13 +68,13 @@ public class JavaScriptInterface {
     @JavascriptInterface
     public void login(String data) {
         if (data == null || data.length() == 0) {
-            WebViewHelper.ShowError("Brak danych logowania");
+            WebViewHelper.LoginError("Brak danych logowania");
             return;
         }
 
         String[] dataTab = data.split(";");
         if(dataTab.length != 2) {
-            WebViewHelper.ShowError("Niepoprawna ilosc parametrow logowania");
+            WebViewHelper.LoginError("Niepoprawna ilosc parametrow logowania");
             return;
         }
 
@@ -82,7 +82,7 @@ public class JavaScriptInterface {
         String pass = dataTab[1];
 
         if(login.length() == 0 || pass.length() == 0) {
-            WebViewHelper.ShowError("Niepoprawna dlugosc parametrow logowania");
+            WebViewHelper.LoginError("Niepoprawna dlugosc parametrow logowania");
             return;
         }
 
@@ -111,7 +111,7 @@ public class JavaScriptInterface {
         }
         catch(Exception e) {
             Log.d("KROL", "Error: " + e.getMessage());
-            WebViewHelper.ShowError(e.getMessage());
+            WebViewHelper.LoginError(e.getMessage());
         }
     }
 
@@ -119,6 +119,8 @@ public class JavaScriptInterface {
         appContext.currentUser = user;
 
         Log.d("KROL", "Login success");
+
+        WebViewHelper.RunJsFunction("LoginSuccess", "");
 
         WebViewHelper.RunJsFunction("FillUserInfo",
                 "'" + user.id +

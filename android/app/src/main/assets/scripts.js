@@ -3,10 +3,10 @@ function init() {
         var login = $("#login-username").val();
         var pass = $("#login-password").val();
         if(login == null || pass == null) {
-
+            LoginError("Nie mozna odczytac danych logowania");
         }
         else if (login.length == 0 || pass.length == 0) {
-
+            LoginError("Pola login i haslo nie moga byc puste!");
         }
         else {
             Login(login, pass);
@@ -16,6 +16,14 @@ function init() {
 
 function Login(login, pass) {
     window.JSInterface.login(login + ";" + pass);
+}
+
+function LoginError(msg) {
+    $("#login-error").html(msg);
+}
+
+function LoginSuccess() {
+    $("#login-page").addClass('hide');
 }
 
 function FillUserInfo(id, name, surname, email) {
