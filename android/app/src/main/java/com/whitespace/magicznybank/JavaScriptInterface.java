@@ -44,6 +44,7 @@ public class JavaScriptInterface {
             if (appContext.locationManager == null)
                 return;
             final Location loc = appContext.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Log.i("CHUJ", loc.getLatitude() + " " + loc.getLongitude());
             activity.runOnUiThread(new Runnable() {
                 public void run() {
                     appContext.webView.loadUrl("javascript:initMap(" + loc.getLatitude() +"," + loc.getLongitude() + ")");

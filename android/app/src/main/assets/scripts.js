@@ -32,20 +32,13 @@ function initMap(lat, lng) {
           zoom: 14,
           mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var map = new google.maps.Map(mapCanvas, mapOptions);
+    map = new google.maps.Map(mapCanvas, mapOptions);
     geocoder = new google.maps.Geocoder();
-     var mapCanvas = document.getElementById('map');
-     var mapOptions = {
-           center: new google.maps.LatLng(lat, lng),
-           zoom: 14,
-           mapTypeId: google.maps.MapTypeId.ROADMAP
-     }
-     map = new google.maps.Map(mapCanvas, mapOptions);
-
-    var marker = new google.maps.Marker({
-        position: [lat, lng],
+    marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat, lng),
         map: map,
-        title: 'Tu jestem!'
+        title: 'Tu jestem!',
+        draggable: true
     });
  }
 
@@ -59,12 +52,12 @@ function ShowError(msg) {
 
 function markerToAddress() {
     var location = marker.getPosition();
-        geocoder.geocode( { 'location': location}, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
+    geocoder.geocode( { 'location': location}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
             document.getElementById("address").value =  results[0].formatted_address;
-          } else {
+        } else {
             alert("Reverse geocode was not successful for the following reason: " + status);
-          }
+        }
     });
 }
 
@@ -73,10 +66,7 @@ function addressToMarker() {
     geocoder.geocode( { 'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         map.setCenter(results[0].geometry.location);
-        marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
+        marker.setPosition(results[0].geometry.location);
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
