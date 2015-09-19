@@ -68,14 +68,21 @@ class BrutalBankProtocol(BasicBankProtocol):
     @handlermethod
     def request_service(self, protocol, request):
         id_ = self._get_user_id(request)
-        if 'index' not in request:
-            protocol.fail('No index')
-        return self.db.request_service(id_, request['index'])
+        if 'service_id' not in request:
+            return protocol.fail('No service id')
+        return self.db.request_service(id_, request['service_id'])
 
     @handlermethod
     def user_data(self, protocol, request):
         id_ = self._get_user_id(request)
         return self.db.get_user_info(id_)
+
+    @handlermethod
+    def buy_service(self, protocol, request):
+        id_ = self._get_user_id(request)
+        if 'service_id' not in request:
+            return protocol.fail('No service id')
+        return self.db.request_service(id_, request['service_id'])
 
     def _get_user_id(self, request):
         if 'id' in request and request['id'] in self.db.users.keys():
