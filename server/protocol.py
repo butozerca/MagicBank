@@ -35,11 +35,19 @@ class BasicBankProtocol(Resource):
 def handlermethod(func):
     def wrap(self, protocol, request):
         if not ('id' in request or ('login' in request and 'pass' in request)):
-            return {'error': 'No credentials'}
+            return bjson.dumps({'error': 'No credentials'})
         try:
             return bjson.dumps(func(self, protocol, request))
         except InvalidId:
-            return {'error': 'Invalid login'}
+            return bjson.dumps({'error': 'Invalid login'})
+    return wrap
+
+
+def store_in_history(func):
+    def wrap(self, protocol, request):
+        output = func(self, protocol, request)
+        self.db.store_in_history(self._get_user_id(request), output, request)
+        return output
     return wrap
 
 
@@ -52,6 +60,7 @@ class BrutalBankProtocol(BasicBankProtocol):
         self.handlers['request_loan'] = self.request_loan
         self.handlers['buy_service'] = self.buy_service
         self.handlers['user_data'] = self.user_data
+        self.handlers['request_history'] = self.request_history
         self.db = DB()
 
     @handlermethod
@@ -65,6 +74,7 @@ class BrutalBankProtocol(BasicBankProtocol):
         return self.db.get_buyable_services(id_)
 
     @handlermethod
+    @store_in_history
     def request_service(self, protocol, request):
         id_ = self._get_user_id(request)
         if 'service_id' not in request:
@@ -77,6 +87,7 @@ class BrutalBankProtocol(BasicBankProtocol):
         return self.db.get_user_info(id_)
 
     @handlermethod
+    @store_in_history
     def buy_service(self, protocol, request):
         id_ = self._get_user_id(request)
         if 'service_id' not in request:
@@ -84,11 +95,17 @@ class BrutalBankProtocol(BasicBankProtocol):
         return self.db.buy_service(id_, request['service_id'])
 
     @handlermethod
+    @store_in_history
     def request_loan(self, protocol, request):
         id_ = self._get_user_id(request)
         if 'amount' not in request:
             return {'error': 'No amount'}
         return self.db.request_loan(id_, request['amount'])
+
+    @handlermethod
+    def request_history(self, protocol, request):
+        id_ = self._get_user_id(request)
+        return self.db.request_history(id_)
 
     def _get_user_id(self, request):
         if 'id' in request and request['id'] in self.db.users.keys():

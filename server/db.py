@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import copy
+from collections import defaultdict
 
 from service import Service
 from user import User
@@ -10,19 +11,20 @@ class DB:
     def __init__(self):
         self.users = {
             'soperkrulDupa.8': User('soperkrul', 'Dupa.8', 'Jakub', 'Król',
-            1337, 666, 0, 'Economy Saver Negative',
+            'krol@jest.spoko', 1337, 666, 0, 'Economy Saver Negative',
             {
-                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
-                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
+                '0': Service('0', 'Hydraulik', 5, 3, 50, 'wklada rury', 200),
+                '1': Service('1', 'Ginekolog', 12, 5, 100, 'wyjmuje rury', 200),
+                '2': Service('2', 'Holowanie', 7, 1, 200, 'ciagnie rure', 300),
             },
             {
-                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
-                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
-                '3': Service('3','Grzyby', 10, 10, 'grzyb', 800),
+                '0': Service('0', 'Hydraulik', 5, 3, 50, 'wklada rury', 200),
+                '1': Service('1', 'Ginekolog', 12, 5, 100, 'wyjmuje rury', 200),
+                '2': Service('2', 'Holowanie', 7, 1, 200, 'ciagnie rure', 300),
+                '3': Service('3','Grzyby', 10, 3, 10, 'grzyb', 800),
             })
         }
+        self.histories = defaultdict(list)
 
     def get_services(self, id_):
         return self.users[id_].services.values()
@@ -77,6 +79,13 @@ class DB:
         if key not in self.users:
             raise InvalidId()
         return self.users.get(key)
+
+    def store_in_history(self, id_, output, request):
+        self.histories[id_].append({'input': request, 'output': output})
+        return {'ok': 'ok'}
+
+    def request_history(self, id_):
+        return self.histories[id_]
 
 class InvalidId:
     pass
