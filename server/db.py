@@ -20,10 +20,10 @@ class DB:
         }
 
     def get_services(self, id_):
-        return self.users[id_].services
+        return self.users[id_].services.values()
 
     def get_buyable_services(self, id_):
-        return self.users[id_].buyable
+        return self.users[id_].buyable.values()
                 
     def get_user_info(self, id_):
         if id_ in self.users:
@@ -33,12 +33,13 @@ class DB:
         services = self.users[id_].buyable
         if service_id in services:
             new_service = services[service_id]
-            if service.price > self.users[id_].money:
+            if new_service.price > self.users[id_].money:
                 return {'error': 'No money'}
             user = self.users[id_]
             user.services[service_id] = new_service
             del user.buyable[service_id] 
             user.money -= new_service.price
+            return {'ok': 'ok'}
         else:
             return {'error': 'No service'}
 

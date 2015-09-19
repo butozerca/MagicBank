@@ -22,5 +22,6 @@ class User(JSONSerializable):
             'last_name': self.last_name,
             'money': self.money,
             'max_loan': self.max_loan,
+            'loan': self.loan,
             'tariff': self.tariff,
         }
