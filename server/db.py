@@ -54,6 +54,20 @@ class DB:
         else:
             return {"error": "No service"}
 
+    def request_loan(self, id_, amount):
+        user = self.users[id_]
+        if amount < user.max_loan:
+            user.loan += amount
+            user.money += amount
+            return {'ok': 'ok'}
+        else:
+            return {'error': "More than max loan"}
+
     def get_user_id(self, login, pass_):
         key = login + pass_
+        if key not in self.users:
+            raise InvalidId()
         return self.users.get(key)
+
+class InvalidId:
+    pass

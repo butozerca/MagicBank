@@ -3,7 +3,7 @@ import sys
 from twisted.web.resource import Resource
 
 import bankjson as bjson
-from db import DB
+from db import DB, InvalidId
 from log import Log
 
 class BasicBankProtocol(Resource):
@@ -32,7 +32,7 @@ class BasicBankProtocol(Resource):
         return True
 
     def fail(self, reason):
-        return bjson.dumps('{error: "' + reason + '}')
+        return bjson.dumps('{error: ' + reason + '}')
 
 
 def handlermethod(func):
@@ -87,9 +87,4 @@ class BrutalBankProtocol(BasicBankProtocol):
     def _get_user_id(self, request):
         if 'id' in request and request['id'] in self.db.users.keys():
             return request['id']
-        else:
-            raise InvalidId()
         return self.db.get_user_id(request['login'], request['pass']).id_
-    
-class InvalidId:
-    pass
