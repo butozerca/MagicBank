@@ -32,7 +32,7 @@ class BasicBankProtocol(Resource):
         return True
 
     def fail(self, reason):
-        return bjson.dumps('{error: ' + reason + '}')
+        return bjson.dumps({"error": reason})
 
 
 def handlermethod(func):
