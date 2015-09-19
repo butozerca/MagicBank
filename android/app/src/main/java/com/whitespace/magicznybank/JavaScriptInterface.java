@@ -65,4 +65,9 @@ public class JavaScriptInterface {
         appContext.markerLocation.setLongitude(lng);
     }
 
+    @JavascriptInterface
+    public void login(String data) {
+
+    }
+
 }

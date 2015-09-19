@@ -1,3 +1,23 @@
+function init() {
+    $("#login-button").click(function() {
+        var login = $("#login-username").val();
+        var pass = $("#login-password").val();
+        if(login == null || pass == null) {
+
+        }
+        else if (login.length == 0 || pass.length == 0) {
+
+        }
+        else {
+            Login(login, pass);
+        }
+    });
+}
+
+function Login(login, pass) {
+    window.JSInterface.login(login + ";" + pass);
+}
+
 function FillUserInfo(id, name, surname, email) {
     $("#userInfo").html(id + "<br>" + name + "<br>" + surname + "<br>" + email);
 }
