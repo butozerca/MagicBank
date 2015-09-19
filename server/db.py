@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import copy
+
 from service import Service
 from user import User
 
@@ -12,9 +14,12 @@ class DB:
             {
                 '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
                 '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 0, 200, 'ciagnie rure', 300)
+                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
             },
             {
+                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
+                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
+                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
                 '3': Service('3','Grzyby', 10, 10, 'grzyb', 800),
             })
         }
@@ -36,8 +41,11 @@ class DB:
             if new_service.price > self.users[id_].money:
                 return {'error': 'No money'}
             user = self.users[id_]
-            user.services[service_id] = new_service
-            del user.buyable[service_id] 
+            if service_id not in user.services:
+                user.services[service_id] = copy.deepcopy(new_service)
+            else:
+                user.services[service_id].tokens += new_service.tokens
+            #del user.buyable[service_id] 
             user.money -= new_service.price
             return {'ok': 'ok'}
         else:
