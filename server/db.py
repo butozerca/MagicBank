@@ -15,15 +15,15 @@ class DB:
             'soperkrulDupa.8': User('soperkrul', 'Dupa.8', 'Jakub', 'Król',
             'krol@jest.spoko', 1337, 666, 0, 'Economy Saver Negative',
             {
-                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
-                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
+                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200, 45),
+                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200, 45),
+                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300, 45),
             },
             {
-                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
-                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
-                '3': Service('3','Grzyby', 10, 10, 'grzyb', 800),
+                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200, 45),
+                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200, 45),
+                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300, 45),
+                '3': Service('3','Grzyby', 10, 10, 'grzyb', 800, 45),
             })
         }
         self.histories = defaultdict(list)
@@ -61,7 +61,8 @@ class DB:
             service = services[service_id]
             if service.tokens > 0:
                 service.tokens -= 1
-                return {'ok': 'ok'}
+                return {'ok': 'ok',
+                        'estimate': service.estimate}
             else:
                 return {'error': 'Not enough'}
         else:
