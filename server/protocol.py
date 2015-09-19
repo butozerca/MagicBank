@@ -61,6 +61,7 @@ class BrutalBankProtocol(BasicBankProtocol):
         self.handlers['buy_service'] = self.buy_service
         self.handlers['user_data'] = self.user_data
         self.handlers['request_history'] = self.request_history
+        self.handlers['rate_history_event'] = self.rate_history_event
         self.db = DB()
 
     @handlermethod
@@ -106,6 +107,14 @@ class BrutalBankProtocol(BasicBankProtocol):
     def request_history(self, protocol, request):
         id_ = self._get_user_id(request)
         return self.db.request_history(id_)
+
+    @handlermethod
+    def rate_history_event(self, protocol, request):
+        id_ = self._get_user_id(request)
+        if 'event_id' not in request and 'stars' not in request:
+            return {'error': 'No event id or stars'}
+        return self.db.rate_history_event(id_, request['event_id'],
+                request['stars'])
 
     def _get_user_id(self, request):
         if 'id' in request and request['id'] in self.db.users.keys():

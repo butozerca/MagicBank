@@ -5,6 +5,8 @@ from collections import defaultdict
 
 from service import Service
 from user import User
+from os import urandom
+from base64 import b64encode
 
 
 class DB:
@@ -13,15 +15,15 @@ class DB:
             'soperkrulDupa.8': User('soperkrul', 'Dupa.8', 'Jakub', 'Król',
             'krol@jest.spoko', 1337, 666, 0, 'Economy Saver Negative',
             {
-                '0': Service('0', 'Hydraulik', 5, 3, 50, 'wklada rury', 200),
-                '1': Service('1', 'Ginekolog', 12, 5, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 7, 1, 200, 'ciagnie rure', 300),
+                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
+                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
+                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
             },
             {
-                '0': Service('0', 'Hydraulik', 5, 3, 50, 'wklada rury', 200),
-                '1': Service('1', 'Ginekolog', 12, 5, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 7, 1, 200, 'ciagnie rure', 300),
-                '3': Service('3','Grzyby', 10, 3, 10, 'grzyb', 800),
+                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
+                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
+                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
+                '3': Service('3','Grzyby', 10, 10, 'grzyb', 800),
             })
         }
         self.histories = defaultdict(list)
@@ -81,11 +83,20 @@ class DB:
         return self.users.get(key)
 
     def store_in_history(self, id_, output, request):
-        self.histories[id_].append({'input': request, 'output': output})
+        self.histories[id_].append({'input': request, 'output': output, 'event_id': b64encode(urandom(16)), 'stars': -1})
         return {'ok': 'ok'}
 
     def request_history(self, id_):
         return self.histories[id_]
+
+    def rate_history_event(self, id_, event_id, stars):
+        history = self.histories[id_]
+        rated = False
+        for i in xrange(0, len(history)):
+            if history[i]['event_id'] == event_id:
+                history[i]['stars'] = stars
+                rated = True
+        return {'ok': 'ok'} if rated else {'error': 'Nothing was rated'}
 
 class InvalidId:
     pass
