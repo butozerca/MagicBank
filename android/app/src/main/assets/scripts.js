@@ -2,11 +2,19 @@ function FillUserInfo(id, name, surname, email) {
     $("#userInfo").html(id + "<br>" + name + "<br>" + surname + "<br>" + email);
 }
 
-function appendService(name, description, price) {
+function appendService(id, name, description, price) {
     if(price == -1)
-        $("#userOperations").append(name + ":<br>" + description + "<br><br>");
+    {
+        var html = name + ":<br>" + description + "<br>";
+        html += "<button onclick='goToService('" + id + "')'>zamow</button><br><br>";
+        $("#userOperations").append(html);
+    }
     else
         $("#userOperations").append(name + " (" + price + " zł):<br>" + description + "<br><br>");
+}
+
+function goToService(id) {
+    window.JSInterface.goToService(id);
 }
 
 function takePhoto() {
@@ -34,13 +42,6 @@ function initMap(lat, lng) {
     };
     var map = new google.maps.Map(mapCanvas, mapOptions);
     geocoder = new google.maps.Geocoder();
-     var mapCanvas = document.getElementById('map');
-     var mapOptions = {
-           center: new google.maps.LatLng(lat, lng),
-           zoom: 14,
-           mapTypeId: google.maps.MapTypeId.ROADMAP
-     }
-     map = new google.maps.Map(mapCanvas, mapOptions);
 
     var marker = new google.maps.Marker({
         position: [lat, lng],

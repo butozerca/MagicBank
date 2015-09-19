@@ -64,4 +64,5 @@ public class JavaScriptInterface {
         appContext.markerLocation.setLatitude(lat);
         appContext.markerLocation.setLongitude(lng);
     }
+
 }
