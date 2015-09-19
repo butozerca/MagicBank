@@ -16,12 +16,17 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.json.*;
 
 public class MainActivity extends AppCompatActivity {
 
     WebView webView;
 
+    User currentUser;
+    List<OperationType> allBankOperations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +95,16 @@ public class MainActivity extends AppCompatActivity {
         getUserDataTask.execute();
     }
 
+    private OperationType getOperationById(int id) {
+        if(allBankOperations == null)
+            return null;
+
+        for(int i=0; i< allBankOperations.size(); i++)
+            if(allBankOperations.get(i).id == id)
+                return allBankOperations.get(i);
+
+        return null;
+    }
 
     public class AsyncGetUserDataTask extends AsyncTask<Void, Void, User> {
         @Override
@@ -112,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            currentUser = user;
+
             return user;
         }
 
@@ -124,10 +141,21 @@ public class MainActivity extends AppCompatActivity {
                     "', '" + user.email +
                     "')");
 
-            for(int i=0; i < user.availableOperations.size(); i++) {
-                webView.loadUrl("javascript:appendOperation('"
-                        + user.availableOperations.get(i).name + "', '"
-                        + user.availableOperations.get(i).description +"')");
+            if(allBankOperations != null) {
+                for (int i = 0; i < allBankOperations.size(); i++) {
+                    if (user.availableOperations.contains(allBankOperations.get(i).id)) {
+                        webView.loadUrl("javascript:appendOperation('"
+                                + allBankOperations.get(i).name + "', '"
+                                + allBankOperations.get(i).description
+                                + "', -1)");
+                    } else {
+                        webView.loadUrl("javascript:appendOperation('"
+                                + allBankOperations.get(i).name + "', '"
+                                + allBankOperations.get(i).description + "', "
+                                + allBankOperations.get(i).price + ")");
+                    }
+
+                }
             }
         }
 
@@ -180,18 +208,27 @@ public class MainActivity extends AppCompatActivity {
 
         private void addOperationsForUser(User user, String operationsJSon, String userOperationsJSon) throws JSONException {
             JSONArray allOperationsArr = new JSONArray(operationsJSon);
-            //JSONArray allOperationsArr = new JSONArray(operationsJSon);
+            JSONArray userOperationsArr = new JSONArray(userOperationsJSon);
 
-            for (int i = 0; i < arr.length(); i++)
+            for (int i = 0; i < userOperationsArr.length(); i++)
             {
-                int id = arr.getJSONObject(i).getInt("id");
-                String name = arr.getJSONObject(i).getString("name");
-                String description = arr.getJSONObject(i).getString("description");
+                int id = userOperationsArr.getJSONObject(i).getInt("id");
 
-                OperationType operationType = new OperationType(id, name, description);
+                user.availableOperations.add(id);
+            }
 
+            allBankOperations = new LinkedList<>();
 
-                user.availableOperations.add(operationType);
+            for (int i = 0; i < allOperationsArr.length(); i++)
+            {
+                int id = allOperationsArr.getJSONObject(i).getInt("id");
+                String name = allOperationsArr.getJSONObject(i).getString("name");
+                String description = allOperationsArr.getJSONObject(i).getString("description");
+                Double price = allOperationsArr.getJSONObject(i).getDouble("price");
+
+                OperationType operationType = new OperationType(id, name, description, price);
+
+                allBankOperations.add(operationType);
             }
         }
     }

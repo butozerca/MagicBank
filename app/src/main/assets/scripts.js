@@ -15,6 +15,9 @@ function FillUserInfo(id, name, surname, email) {
     $("#userInfo").html(id + "<br>" + name + "<br>" + surname + "<br>" + email);
 }
 
-function appendOperation(name, description) {
-    $("#userOperations").append(name + ":<br>" + description + "<br><br>");
+function appendOperation(name, description, price) {
+    if(price == -1)
+        $("#userOperations").append(name + ":<br>" + description + "<br><br>");
+    else
+        $("#userOperations").append(name + " (" + price + " zł):<br>" + description + "<br><br>");
 }
