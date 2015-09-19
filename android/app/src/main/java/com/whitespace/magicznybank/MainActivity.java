@@ -1,5 +1,6 @@
 package com.whitespace.magicznybank;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,13 +12,15 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import java.io.ByteArrayOutputStream;
 
 import org.json.*;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     public static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private final ApplicationContext appContext = new ApplicationContext();
@@ -25,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         appContext.activity = this;
@@ -43,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        appContext.webView.loadUrl("file:///android_asset/index.html");
+        appContext.webView.loadUrl("file:///android_asset/index1.html");
 
         try {
             loadUser();
@@ -56,28 +61,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void loadUser() throws JSONException {
