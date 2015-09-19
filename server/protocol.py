@@ -9,7 +9,6 @@ from log import Log
 class BasicBankProtocol(Resource):
     isLeaf = True
     def render_GET(self, request):
-        print request.args
         try:
             if 'msg' not in request.args:
                 return self.fail("No msg")
