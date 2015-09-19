@@ -35,3 +35,6 @@ proguard/
 
 # Vim
 *.swp
+
+# Python
+*.pyc
