@@ -17,4 +17,4 @@ class Service(JSONSerializable):
             'tokens': self.tokens,
             'estimate': self.estimate,
             'description': self.description,
-            }
+        }
