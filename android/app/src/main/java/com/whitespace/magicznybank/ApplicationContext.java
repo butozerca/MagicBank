@@ -14,7 +14,6 @@ public class ApplicationContext {
     public Activity activity;
     public WebView webView;
     public User currentUser;
-    public List<OperationType> allBankOperations;
     public LocationManager locationManager;
     public Location location;
 
