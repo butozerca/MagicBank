@@ -39,7 +39,10 @@ def handlermethod(func):
     def wrap(self, protocol, request):
         if not ('id' in request or ('login' in request and 'pass' in request)):
             return protocol.fail('No credentials')
-        return bjson.dumps(func(self, protocol, request))
+        try:
+            return bjson.dumps(func(self, protocol, request))
+        except InvalidId:
+            return protocol.fail('Invalid login')
     return wrap
 
 
@@ -65,7 +68,9 @@ class BrutalBankProtocol(BasicBankProtocol):
     @handlermethod
     def request_service(self, protocol, request):
         id_ = self._get_user_id(request)
-        return protocol.fail('Not enough')
+        if 'index' not in request:
+            protocol.fail('No index')
+        return self.db.request_service(id_, request['index'])
 
     @handlermethod
     def user_data(self, protocol, request):
@@ -73,6 +78,11 @@ class BrutalBankProtocol(BasicBankProtocol):
         return self.db.get_user_info(id_)
 
     def _get_user_id(self, request):
-        if 'id' in request:
+        if 'id' in request and request['id'] in self.db.users.keys():
             return request['id']
+        else:
+            raise InvalidId()
         return self.db.get_user_id(request['login'], request['pass']).id_
+    
+class InvalidId:
+    pass
