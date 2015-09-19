@@ -1,5 +1,7 @@
 package com.whitespace.magicznybank;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.webkit.WebView;
 
 import java.util.List;
@@ -12,5 +14,7 @@ public class ApplicationContext {
     public WebView webView;
     public User currentUser;
     public List<OperationType> allBankOperations;
+    public LocationManager locationManager;
+    public Location location;
 
 }

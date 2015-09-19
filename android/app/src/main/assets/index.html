@@ -1,9 +1,17 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-
         <script src="jquery-2.1.4.js"></script>
         <script src="scripts.js"></script>
+        <style>
+            #map {
+            width: 200px;
+            height: 200px;
+            background-color: #CCC;
+            }
+        </style>
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
     </head>
     <body onload="init()">
         <div id="userInfo">
@@ -15,5 +23,9 @@
         <button onclick="takePhoto();">Take photo</button>
         <br><br>
         <div id="img"></div>
+        <br>
+        <button onclick="readLocation();">Read location</button>
+        <div id="map"></div>
+        <br>
     </body>
 </html>

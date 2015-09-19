@@ -26,6 +26,26 @@ function takePhoto() {
     window.JSInterface.takePhoto();
 }
 
+function readLocation() {
+    window.JSInterface.readLocation();
+}
+
 function SetPicture(img) {
     $("#userOperations").html("<img src='" + img + "' />");
+}
+
+function initMap(lat, lng) {
+    var mapCanvas = document.getElementById('map');
+    var mapOptions = {
+          center: new google.maps.LatLng(lat, lng),
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: {lat, lng},
+        map: map,
+        title: 'Tu jestem!'
+    });
 }
