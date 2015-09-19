@@ -54,4 +54,14 @@ public class JavaScriptInterface {
             e.printStackTrace();
         }
     }
+
+    @JavascriptInterface
+    public void readMarkerLocation(String s) {
+        String[] q = s.split(" ");
+        double lat = Double.valueOf(q[0]);
+        double lng = Double.valueOf(q[1]);
+        appContext.markerLocation = new Location(LocationManager.NETWORK_PROVIDER);
+        appContext.markerLocation.setLatitude(lat);
+        appContext.markerLocation.setLongitude(lng);
+    }
 }
