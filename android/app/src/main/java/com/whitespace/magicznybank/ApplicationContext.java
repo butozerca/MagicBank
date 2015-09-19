@@ -16,5 +16,6 @@ public class ApplicationContext {
     public User currentUser;
     public LocationManager locationManager;
     public Location location;
+    public Location markerLocation;
 
 }

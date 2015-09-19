@@ -1,29 +1,38 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import copy
+from collections import defaultdict
+
 from service import Service
 from user import User
+from os import urandom
+from base64 import b64encode
 
 
 class DB:
     def __init__(self):
         self.users = {
             'soperkrulDupa.8': User('soperkrul', 'Dupa.8', 'Jakub', 'Król',
-            1337, 666, 0, 'Economy Saver Negative',
+            'krol@jest.spoko', 1337, 666, 0, 'Economy Saver Negative',
             {
                 '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
                 '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 0, 200, 'ciagnie rure', 300)
+                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
             },
             {
+                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
+                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
+                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
                 '3': Service('3','Grzyby', 10, 10, 'grzyb', 800),
             })
         }
+        self.histories = defaultdict(list)
 
     def get_services(self, id_):
-        return self.users[id_].services
+        return self.users[id_].services.values()
 
     def get_buyable_services(self, id_):
-        return self.users[id_].buyable
+        return self.users[id_].buyable.values()
                 
     def get_user_info(self, id_):
         if id_ in self.users:
@@ -33,12 +42,16 @@ class DB:
         services = self.users[id_].buyable
         if service_id in services:
             new_service = services[service_id]
-            if service.price > self.users[id_].money:
+            if new_service.price > self.users[id_].money:
                 return {'error': 'No money'}
             user = self.users[id_]
-            user.services[service_id] = new_service
-            del user.buyable[service_id] 
+            if service_id not in user.services:
+                user.services[service_id] = copy.deepcopy(new_service)
+            else:
+                user.services[service_id].tokens += new_service.tokens
+            #del user.buyable[service_id] 
             user.money -= new_service.price
+            return {'ok': 'ok'}
         else:
             return {'error': 'No service'}
 
@@ -68,6 +81,22 @@ class DB:
         if key not in self.users:
             raise InvalidId()
         return self.users.get(key)
+
+    def store_in_history(self, id_, output, request):
+        self.histories[id_].append({'input': request, 'output': output, 'event_id': b64encode(urandom(16)), 'stars': -1})
+        return {'ok': 'ok'}
+
+    def request_history(self, id_):
+        return self.histories[id_]
+
+    def rate_history_event(self, id_, event_id, stars):
+        history = self.histories[id_]
+        rated = False
+        for i in xrange(0, len(history)):
+            if history[i]['event_id'] == event_id:
+                history[i]['stars'] = stars
+                rated = True
+        return {'ok': 'ok'} if rated else {'error': 'Nothing was rated'}
 
 class InvalidId:
     pass
