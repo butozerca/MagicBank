@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         appContext.webView.loadUrl("file:///android_asset/index.html");
 
-        //webView.loadUrl("javascript:setInfoFromApp('Dupa dupa oraz kupa')");
-
         try {
             loadUser();
         } catch (JSONException e) {

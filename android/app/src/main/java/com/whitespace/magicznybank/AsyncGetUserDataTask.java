@@ -40,15 +40,15 @@ public class AsyncGetUserDataTask extends AsyncTask<Void, Void, Void> {
             if(user == null)
                 throw new Exception("Unknown error - parsing user data");
 
-            String operationsJSon = downloadOperationsJSon(user);
-            if(operationsJSon.length() == 0)
-                throw new Exception("Unknown error - getting user operations");
+            String servicesJSon = downloadservicesJSon(user);
+            if(servicesJSon.length() == 0)
+                throw new Exception("Unknown error - getting user services");
 
-            String buyableOperationsJSon = downloadBuyableOperationsJSon(user);
-            if(buyableOperationsJSon.length() == 0)
-                throw new Exception("Unknown error - getting user operations");
+            String buyableservicesJSon = downloadBuyableservicesJSon(user);
+            if(buyableservicesJSon.length() == 0)
+                throw new Exception("Unknown error - getting user services");
 
-            addOperationsForUser(user, operationsJSon, buyableOperationsJSon);
+            addservicesForUser(user, servicesJSon, buyableservicesJSon);
 
             CreateOutput(user);
         }
@@ -80,21 +80,19 @@ public class AsyncGetUserDataTask extends AsyncTask<Void, Void, Void> {
                         "', '" + user.email +
                         "')");
 
-                if(appContext.allBankOperations != null) {
-                    for (int i = 0; i < appContext.allBankOperations.size(); i++) {
-                        if (user.availableOperations.contains(appContext.allBankOperations.get(i).id)) {
-                            appContext.webView.loadUrl("javascript:appendOperation('"
-                                    + appContext.allBankOperations.get(i).name + "', '"
-                                    + appContext.allBankOperations.get(i).description
-                                    + "', -1)");
-                        } else {
-                            appContext.webView.loadUrl("javascript:appendOperation('"
-                                    + appContext.allBankOperations.get(i).name + "', '"
-                                    + appContext.allBankOperations.get(i).description + "', "
-                                    + appContext.allBankOperations.get(i).price + ")");
-                        }
 
-                    }
+                for (int i = 0; i < user.services.size(); i++) {
+                    appContext.webView.loadUrl("javascript:appendService('"
+                            + user.services.get(i).name + "', '"
+                            + user.services.get(i).description
+                            + "', -1)");
+                }
+
+                for (int i = 0; i < user.buyableServices.size(); i++) {
+                    appContext.webView.loadUrl("javascript:appendService('"
+                            + user.buyableServices.get(i).name + "', '"
+                            + user.buyableServices.get(i).description + "', "
+                            + user.buyableServices.get(i).estimate + ")");
                 }
             }
         });
@@ -131,17 +129,17 @@ public class AsyncGetUserDataTask extends AsyncTask<Void, Void, Void> {
         return getData("{\"method\":\"user_data\",\"login\":\"" + login + "\",\"pass\":\"" + pass + "\"}");
     }
 
-    private String downloadOperationsJSon(User user) throws Exception {
+    private String downloadservicesJSon(User user) throws Exception {
         return getData("{\"method\":\"list_services\"," + user.LoginDataJSon() + "}");
     }
 
-    private String downloadBuyableOperationsJSon(User user) throws Exception {
+    private String downloadBuyableservicesJSon(User user) throws Exception {
         return getData("{\"method\":\"list_buyable_services\"," + user.LoginDataJSon() + "}");
     }
 
     private User parseUserJSon(String json, String login, String pass) throws Exception {
         String id, name, surname, email, tariff;
-        Double maxLoan, money;
+        Double maxLoan, money, loan;
 
         try {
             JSONObject obj = new JSONObject(json);
@@ -156,41 +154,56 @@ public class AsyncGetUserDataTask extends AsyncTask<Void, Void, Void> {
             maxLoan = obj.getDouble("max_loan");
             money = obj.getDouble("money");
             tariff = obj.getString("tariff");
+            loan = obj.getDouble("loan");
 
         } catch (JSONException e) {
             Log.d("KROL", "Error: " + e.getMessage());
             throw new Exception("Server error - missing user data");
         }
 
-        return new User(id, login, pass, name, surname, email, maxLoan, money, tariff);
+        return new User(id, login, pass, name, surname, email, maxLoan, money, tariff, loan);
     }
 
-    private void addOperationsForUser(User user, String operationsJSon, String userOperationsJSon) throws Exception {
+    private void addservicesForUser(User user, String servicesJSon, String buyableservicesJSon) throws Exception {
         try {
-            JSONArray allOperationsArr = new JSONArray(operationsJSon);
-            JSONArray userOperationsArr = new JSONArray(userOperationsJSon);
+            JSONArray servicesArr = new JSONArray(servicesJSon);
 
-            for (int i = 0; i < userOperationsArr.length(); i++) {
-                int id = userOperationsArr.getJSONObject(i).getInt("id");
 
-                user.availableOperations.add(id);
+
+            for(int i = 0; i < servicesArr.length(); i++) {
+                try {
+                    String id = servicesArr.getJSONObject(i).getString("id");
+                    int tokens = servicesArr.getJSONObject(i).getInt("tokens");
+                    double estimate = servicesArr.getJSONObject(i).getDouble("estimate");
+                    String name = servicesArr.getJSONObject(i).getString("name");
+                    String description = servicesArr.getJSONObject(i).getString("description");
+
+                    Service service = new Service(id, tokens, estimate, name, description);
+                    user.services.add(service);
+                } catch (JSONException e) {
+                    Log.d("KROL", "Error - problem with parsing service.\n" + e.getMessage());
+                }
             }
 
-            appContext.allBankOperations = new ArrayList<>();
+            JSONArray buyableservicesArr = new JSONArray(buyableservicesJSon);
 
-            for (int i = 0; i < allOperationsArr.length(); i++) {
-                int id = allOperationsArr.getJSONObject(i).getInt("id");
-                String name = allOperationsArr.getJSONObject(i).getString("name");
-                String description = allOperationsArr.getJSONObject(i).getString("description");
-                Double price = allOperationsArr.getJSONObject(i).getDouble("price");
+            for(int i = 0; i < buyableservicesArr.length(); i++) {
+                try {
+                    String id = buyableservicesArr.getJSONObject(i).getString("id");
+                    int tokens = buyableservicesArr.getJSONObject(i).getInt("tokens");
+                    double estimate = buyableservicesArr.getJSONObject(i).getDouble("estimate");
+                    String name = buyableservicesArr.getJSONObject(i).getString("name");
+                    String description = buyableservicesArr.getJSONObject(i).getString("description");
 
-                OperationType operationType = new OperationType(id, name, description, price);
-
-                appContext.allBankOperations.add(operationType);
+                    Service service = new Service(id, tokens, estimate, name, description);
+                    user.buyableServices.add(service);
+                } catch (JSONException e) {
+                    Log.d("KROL", "Error - problem with parsing buyable service.\n" + e.getMessage());
+                }
             }
         } catch (JSONException e) {
             Log.d("KROL", "Error: " + e.getMessage());
-            throw new Exception("Error while parsing operations data");
+            throw new Exception("Error while parsing services data");
         }
     }
 }

@@ -1,21 +1,8 @@
- function init() {
-    /*$("#dupap").html("duppppppaaa");
-
-    $('#lines').on('change', function() {
-        window.JSInterface.showStopsForLine(this.value);
-    });
-
-    $('#stops').on('change', function() {
-        window.JSInterface.showLinesForStop(this.value);
-    });*/
-}
-
-
 function FillUserInfo(id, name, surname, email) {
     $("#userInfo").html(id + "<br>" + name + "<br>" + surname + "<br>" + email);
 }
 
-function appendOperation(name, description, price) {
+function appendService(name, description, price) {
     if(price == -1)
         $("#userOperations").append(name + ":<br>" + description + "<br><br>");
     else
@@ -31,25 +18,28 @@ function readLocation() {
 }
 
 function SetPicture(img) {
-    $("#userOperations").html("<img src='" + img + "' />");
+    $("#img").html("<img src='" + img + "' />");
 }
 
 var marker;
-function initMap(lat, lng) {
-     var mapCanvas = document.getElementById('map');
-     var mapOptions = {
-           center: new google.maps.LatLng(lat, lng),
-           zoom: 14,
-           mapTypeId: google.maps.MapTypeId.ROADMAP
-     }
-     var map = new google.maps.Map(mapCanvas, mapOptions);
+var map;
+var geocoder;
 
-     marker = new google.maps.Marker({
-         position: {lat, lng},
-         map: map,
-         title: 'Tu jestem!',
-         draggable: true
-     });
+function initMap(lat, lng) {
+    var mapCanvas = document.getElementById('map');
+    var mapOptions = {
+          center: new google.maps.LatLng(lat, lng),
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(mapCanvas, mapOptions);
+    geocoder = new google.maps.Geocoder();
+    marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat, lng),
+        map: map,
+        title: 'Tu jestem!',
+        draggable: true
+    });
  }
 
 function readMarkerLocation() {
@@ -58,4 +48,27 @@ function readMarkerLocation() {
 
 function ShowError(msg) {
     $("#error").html("Error: " + msg);
+}
+
+function markerToAddress() {
+    var location = marker.getPosition();
+    geocoder.geocode( { 'location': location}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            document.getElementById("address").value =  results[0].formatted_address;
+        } else {
+            alert("Reverse geocode was not successful for the following reason: " + status);
+        }
+    });
+}
+
+function addressToMarker() {
+    var address = document.getElementById("address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        marker.setPosition(results[0].geometry.location);
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
 }
