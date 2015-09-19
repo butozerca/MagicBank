@@ -1,7 +1,11 @@
 package com.whitespace.magicznybank;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -10,7 +14,6 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import java.io.ByteArrayOutputStream;
-import java.util.List;
 
 import org.json.*;
 
@@ -27,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
         appContext.activity = this;
 
         appContext.webView = (WebView)findViewById(R.id.webView);
+        appContext.webView = (WebView) findViewById(R.id.webView);
 
         appContext.webView.getSettings().setJavaScriptEnabled(true);
 
-        JavaScriptInterface jsInterface = new JavaScriptInterface(this);
+        JavaScriptInterface jsInterface = new JavaScriptInterface(this, appContext);
         appContext.webView.addJavascriptInterface(jsInterface, "JSInterface");
 
         appContext.webView.setWebViewClient(new WebViewClient() {
@@ -46,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             loadUser();
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            handleLocation();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -77,18 +87,6 @@ public class MainActivity extends AppCompatActivity {
         getUserDataTask.execute();
     }
 
-    private OperationType getOperationById(int id) {
-        List<OperationType> ops = appContext.allBankOperations;
-        if(ops == null)
-            return null;
-
-        for(int i=0; i< ops.size(); i++)
-            if(ops.get(i).id == id)
-                return ops.get(i);
-
-        return null;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -102,6 +100,24 @@ public class MainActivity extends AppCompatActivity {
             String image = "data:image/png;base64," + imgageBase64;
 
             appContext.webView.loadUrl("javascript:SetPicture('" + image + "')");
+        }
+    }
+    private void handleLocation () {
+        appContext.locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationListener listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {}
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+            @Override
+            public void onProviderEnabled(String provider) {}
+            @Override
+            public void onProviderDisabled(String provider) {}
+        };
+        try {
+            appContext.locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
