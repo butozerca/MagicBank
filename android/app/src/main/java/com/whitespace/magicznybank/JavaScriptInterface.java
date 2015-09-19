@@ -68,7 +68,79 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public void login(String data) {
+        if (data == null || data.length() == 0) {
+            WebViewHelper.ShowError("Brak danych logowania");
+            return;
+        }
 
+        String[] dataTab = data.split(";");
+        if(dataTab.length != 2) {
+            WebViewHelper.ShowError("Niepoprawna ilosc parametrow logowania");
+            return;
+        }
+
+        String login = dataTab[0];
+        String pass = dataTab[1];
+
+        if(login.length() == 0 || pass.length() == 0) {
+            WebViewHelper.ShowError("Niepoprawna dlugosc parametrow logowania");
+            return;
+        }
+
+        User user;
+
+        try {
+            String userJSon = ServerConnectionHelper.downloadUserJSon(login, pass);
+            if (userJSon.length() == 0)
+                throw new Exception("Unknown error - getting user data");
+
+            user = JSonHelper.parseUserJSon(userJSon, login, pass);
+            if(user == null)
+                throw new Exception("Unknown error - parsing user data");
+
+            String servicesJSon = ServerConnectionHelper.downloadservicesJSon(user);
+            if(servicesJSon.length() == 0)
+                throw new Exception("Unknown error - getting user services");
+
+            String buyableservicesJSon = ServerConnectionHelper.downloadBuyableservicesJSon(user);
+            if(buyableservicesJSon.length() == 0)
+                throw new Exception("Unknown error - getting user services");
+
+            JSonHelper.addServicesForUser(user, servicesJSon, buyableservicesJSon);
+
+            LoginOutput(user);
+        }
+        catch(Exception e) {
+            Log.d("KROL", "Error: " + e.getMessage());
+            WebViewHelper.ShowError(e.getMessage());
+        }
+    }
+
+    private void LoginOutput(User user) {
+        appContext.currentUser = user;
+
+        Log.d("KROL", "Login success");
+
+        WebViewHelper.RunJsFunction("FillUserInfo",
+                "'" + user.id +
+                "', '" + user.name +
+                "', '" + user.surname +
+                "', '" + user.email +
+                "'");
+
+        for (int i = 0; i < user.services.size(); i++) {
+            WebViewHelper.RunJsFunction("appendService", "'"
+                    + user.services.get(i).name + "', '"
+                    + user.services.get(i).description
+                    + "', -1");
+        }
+
+        for (int i = 0; i < user.buyableServices.size(); i++) {
+            WebViewHelper.RunJsFunction("appendService", "'"
+                    + user.buyableServices.get(i).name + "', '"
+                    + user.buyableServices.get(i).description + "', "
+                    + user.buyableServices.get(i).estimate);
+        }
     }
 
 }

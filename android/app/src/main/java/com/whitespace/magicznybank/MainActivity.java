@@ -35,7 +35,10 @@ public class MainActivity extends Activity {
         appContext.activity = this;
 
         appContext.webView = (WebView)findViewById(R.id.webView);
-        appContext.webView = (WebView) findViewById(R.id.webView);
+
+        WebViewHelper.webView = appContext.webView;
+        WebViewHelper.activity = appContext.activity;
+
 
         appContext.webView.getSettings().setJavaScriptEnabled(true);
 
@@ -51,21 +54,10 @@ public class MainActivity extends Activity {
         appContext.webView.loadUrl("file:///android_asset/index1.html");
 
         try {
-            loadUser();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
             handleLocation();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void loadUser() throws JSONException {
-        AsyncGetUserDataTask getUserDataTask = new AsyncGetUserDataTask(appContext);
-        getUserDataTask.execute();
     }
 
     @Override
