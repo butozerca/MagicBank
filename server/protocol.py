@@ -1,56 +1,48 @@
 import sys
 
-from twisted.internet.protocol import Factory
-from twisted.protocols.basic import LineReceiver
+from twisted.web.resource import Resource
 
 import bankjson as bjson
 from db import DB
 from log import Log
 
-class BasicBankProtocol(LineReceiver):
-    def __init__(self, handlers):
-        self.handlers = handlers
-    
-    def connectionMade(self):
-        self.sendLine('{}')
-
-    def connectionLost(self, reason):
-        pass
-
-    def lineReceived(self, line):
+class BasicBankProtocol(Resource):
+    isLeaf = True
+    def render_GET(self, request):
+        print request.args
         try:
-            request = bjson.loads(line)
+            if 'msg' not in request.args:
+                return self.fail("No msg")
+            msg = bjson.loads(request.args['msg'][0])
         except ValueError as e:
             print e.message
         else:
-            Log.debug("handling " + str(request))
-            if not self._check_credentials(request):
-                self.fail("Invalid credentials")
-            if 'method' in request:
-                if request['method'] not in self.handlers:
-                    self.fail('No handler for method: ' + request['method'])
+            Log.debug("handling " + str(msg))
+            if not self._check_credentials(msg):
+                return self.fail("Invalid credentials")
+            if 'method' in msg:
+                if msg['method'] not in self.handlers:
+                    return self.fail('No handler for method: ' + msg['method'])
                 else:
-                    self.handlers[request['method']](self, request)
+                    return self.handlers[msg['method']](self, msg)
             else:
-                self.fail("No method")
+                return self.fail("No method")
 
     def _check_credentials(self, request):
         # TODO: check token
         return True
 
     def fail(self, reason):
-        self.sendLine(bjson.dumps('{error: "' + reason + '}'))
-        self.transport.loseConnection()
+        return bjson.dumps('{error: "' + reason + '}')
 
 
 def handlermethod(func):
     def wrap(self, protocol, request):
-        func(self, protocol, request)
-        protocol.transport.loseConnection()
+        return func(self, protocol, request)
     return wrap
 
 
-class BrutalBankFactory(Factory):
+class BrutalBankProtocol(BasicBankProtocol):
     def __init__(self):
         self.handlers = {}
         self.handlers['list_services'] = self.list_services
@@ -61,21 +53,17 @@ class BrutalBankFactory(Factory):
     @handlermethod
     def list_services(self, protocol, request):
         if 'id' not in request:
-            protocol.fail("No id")
-        protocol.sendLine(
-                bjson.dumps(self.db.get_services(request['id'])))
+            return protocol.fail("No id")
+        return bjson.dumps(self.db.get_services(request['id']))
         
     @handlermethod
     def list_buyable_services(self, protocol, request):
         if 'id' not in request:
-            protocol.fail("No id")
-        protocol.sendLine(bjson.dumps(self.db.get_buyable_services(request['id'])))
+            return protocol.fail("No id")
+        return bjson.dumps(self.db.get_buyable_services(request['id']))
 
     @handlermethod
     def request_service(self, protocol, request):
         if 'id' not in request:
-            protocol.fail("No id")
-        protocol.fail('Not enough')
-
-    def buildProtocol(self, addr):
-        return BasicBankProtocol(self.handlers)
+            return protocol.fail("No id")
+        return protocol.fail('Not enough')

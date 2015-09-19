@@ -1,6 +1,8 @@
 from twisted.internet import reactor
+from twisted.web.server import Site
 
-from protocol import BrutalBankFactory
+from protocol import BrutalBankProtocol
 
-reactor.listenTCP(4325, BrutalBankFactory())
+site = Site(BrutalBankProtocol())
+reactor.listenTCP(4325, site)
 reactor.run()
