@@ -95,9 +95,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected User doInBackground(Void... arg0) {
             String userJSon = downloadUserJSon();
+
             User user = null;
             try {
                 user = parseUserJSon(userJSon);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String operationsJSon = downloadOperationsJSon(user);
+            try {
+                addOperationsForUser(user, operationsJSon);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -113,10 +121,20 @@ public class MainActivity extends AppCompatActivity {
                     "', '" + user.surname +
                     "', '" + user.email +
                     "')");
+
+            for(int i=0; i < user.availableOperations.size(); i++) {
+                webView.loadUrl("javascript:appendOperation('"
+                        + user.availableOperations.get(i).name + "', '"
+                        + user.availableOperations.get(i).description +"')");
+            }
         }
 
         private String downloadUserJSon() {
             return downloadJSon("http://busio.com.pl/hackjamnet/user.html");
+        }
+
+        private String downloadOperationsJSon(User user) {
+            return downloadJSon("http://busio.com.pl/hackjamnet/userOperations.html");
         }
 
         private String downloadJSon(String path) {
@@ -152,6 +170,20 @@ public class MainActivity extends AppCompatActivity {
             String email = obj.getString("email");
 
             return new User(id, name, surname, email);
+        }
+
+        private void addOperationsForUser(User user, String operationsJSon) throws JSONException {
+            JSONArray arr = new JSONArray(operationsJSon);
+            for (int i = 0; i < arr.length(); i++)
+            {
+                int id = arr.getJSONObject(i).getInt("id");
+                String name = arr.getJSONObject(i).getString("name");
+                String description = arr.getJSONObject(i).getString("description");
+
+                OperationType operationType = new OperationType(id, name, description);
+
+                user.availableOperations.add(operationType);
+            }
         }
     }
 }
