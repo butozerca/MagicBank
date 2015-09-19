@@ -15,16 +15,65 @@ class DB:
             'soperkrulDupa.8': User('soperkrul', 'Dupa.8', 'Jakub', 'Król',
             'krol@jest.spoko', 1337, 666, 0, 'Economy Saver Negative',
             {
-                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
-                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
+                '0': Service('0', 'Hydraulik', 'house', 5, 50, 'wklada rury', '12-15-333-7', 200),
+                '1': Service('1', 'Ginekolog', 'med', 12, 100, 'wyjmuje rury', '12-15-333-7', 200),
+                '2': Service('2', 'Holowanie', 'car', 7, 200, 'ciagnie rure', '12-15-333-7', 300),
             },
             {
-                '0': Service('0', 'Hydraulik', 5, 50, 'wklada rury', 200),
-                '1': Service('1', 'Ginekolog', 12, 100, 'wyjmuje rury', 200),
-                '2': Service('2', 'Holowanie', 7, 200, 'ciagnie rure', 300),
-                '3': Service('3','Grzyby', 10, 10, 'grzyb', 800),
-            })
+                '0': Service('0', 'Hydraulik', 'house', 5, 50, 'wklada rury', '12-15-333-7', 200),
+                '1': Service('1', 'Ginekolog', 'med', 12, 100, 'wyjmuje rury', '12-15-333-7', 200),
+                '2': Service('2', 'Holowanie', 'car', 7, 200, 'ciagnie rure', '12-15-333-7', 300),
+                '3': Service('3','Grzyby', 'med', 10, 10, 'grzyb', '12-15-333-7', 800),
+            }),
+            'plizonasdf': User('plizon', 'asdf', 'Patryk', 'Lizoń', 'plizon@bank.pl',
+            10000, 1000, 100, 'Uber Bank Pro Expert Assistance',
+            {
+                '0': Service('0', 'Hydraulik', 'house', 5, 60,
+                    "Nasz bank dobrał elitarną ekipę doświadczonych fachowców "
+                    "w dziedzinie utrzymywania właściwej wilgotności domóstw. ",
+                    '606-612-309', 400), 
+                '1': Service('1', 'Holowanie', 'car', 10, 50,
+                    "Szybkie i sprawne lawetowanie samochodów po ulicy i bezdrożach.",
+                    '507-705-075', 450),
+                '2': Service('2', 'Lekarz', 'med', 11, 75,
+                    'Nerki tanio i szybko. Niezawodność kosztem usterek.',
+                    '501-008-128', 303),
+                '4': Service('4', 'Murarz', 'house', 2, 20,
+                    'Murowana jakość. Solidny mur beton',
+                    '321-345-112', 123),
+                '5': Service('5', 'Helikopter', 'car', 1, 5,
+                    'Zgubiłeś drogę? Zwiewasz przed CBA? A może lubisz placki? '
+                    'Zamów helikopter już teraz. Z góry gwarantowana jakość.',
+                    '505-105-205', 303),
+                '6': Service('6', 'Karetka 24h', 'med', 1, 10,
+                    'NFZ znowu cię zawiódł? Zamów karetkę, nie martw się o jutro.',
+                    '112-999-137', 1000),
+            },
+            {
+                '0': Service('0', 'Hydraulik', 'house', 5, 60,
+                    "Nasz bank dobrał elitarną ekipę doświadczonych fachowców "
+                    "w dziedzinie utrzymywania właściwej wilgotności domóstw. ",
+                    '606-612-309', 400), 
+                '1': Service('1', 'Holowanie', 'car', 10, 50,
+                    "Szybkie i sprawne lawetowanie samochodów po ulicy i bezdrożach.",
+                    '507-705-075', 450),
+                '2': Service('2', 'Lekarz', 'med', 11, 75,
+                    'Nerki tanio i szybko. Niezawodność kosztem usterek.',
+                    '501-008-128', 303),
+                '4': Service('4', 'Murarz', 'house', 2, 20,
+                    'Murowana jakość. Solidny mur beton',
+                    '321-345-112', 123),
+                '5': Service('5', 'Helikopter', 'car', 1, 5,
+                    'Zgubiłeś drogę? Zwiewasz przed CBA? A może lubisz placki? '
+                    'Zamów helikopter już teraz. Z góry gwarantowana jakość.',
+                    '505-105-205', 303),
+                '6': Service('6', 'Karetka 24h', 'med', 1, 10,
+                    'NFZ znowu cię zawiódł? Zamów karetkę, nie martw się o jutro.',
+                    '112-999-137', 1000),
+                '3': Service('3', 'Elektryk', 'house', 7, 77,
+                    'Porażająco sprawni panowie. Poeci w swej dziedzinie.',
+                    '606-666-660', 655),
+            }),
         }
         self.histories = defaultdict(list)
 
@@ -61,7 +110,8 @@ class DB:
             service = services[service_id]
             if service.tokens > 0:
                 service.tokens -= 1
-                return {'ok': 'ok'}
+                return {'ok': 'ok',
+                        'estimate': service.estimate}
             else:
                 return {'error': 'Not enough'}
         else:
