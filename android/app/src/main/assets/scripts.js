@@ -55,3 +55,7 @@ function initMap(lat, lng) {
 function readMarkerLocation() {
     window.JSInterface.readMarkerLocation(marker.getPosition().lat() + " " + marker.getPosition().lng());
 }
+
+function ShowError(msg) {
+    $("#error").html("Error: " + msg);
+}
