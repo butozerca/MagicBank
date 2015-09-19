@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Magiczny Bank</title>
+
+    <script src="jquery-2.1.4.js"></script>
+    <script src="scripts.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
     <meta name="description" content="Magiczny Bank" />
 
 
@@ -10,18 +15,18 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body>
+<body onload="init();">
     <section id='login-page'>
         <form>
             <h1>Logowanie</h1>
-            <input id='login-username' type='text' placeholder="Login">
-            <input id='login-password' type="password" placeholder="Hasło">
+            <input id='login-username' type='text' placeholder="Login" value="soperkrul">
+            <input id='login-password' type="password" placeholder="Hasło" value="Dupa.8">
             <button id='login-button'>ZALOGUJ</button>
         </form>
     </section>
     <section id='main-page'>
         <header>
-            <h2 id='leged-user'>Jan Kowalski</h2>
+            <h2>Jan Kowalski</h2>
         </header>
         <nav>
             <div id='home'></div>
@@ -29,7 +34,7 @@
             <div id='car'></div>
         </nav>
         <div id='main-menu'>
-            <div id='house-menu' class="hide">
+            <div id='home-menu' class="hide">
                 <div class="plumber">Hydraulik</div>
                 <div class="electrician">Elektryk</div>
                 <div class="hood">Awaria RTV/AGD</div>
@@ -50,8 +55,7 @@
     </section>
     <section id='order-with-photo'>
         <header>
-            <span class='specific-title'>Hydraulik</span>
-            <img src='img/close.svg'>
+            <span class='specific-title'></span>
         </header>
         <div class='date-picker'>
             <span>Realizacja:</span>

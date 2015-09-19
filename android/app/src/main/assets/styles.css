@@ -374,7 +374,7 @@ section {
 }
 
 #main-page nav #home {
-  background-image: url(../img/home.svg);
+  background-image: url(img/home.svg);
 }
 
 #main-page nav #home:after {
@@ -399,7 +399,7 @@ section {
 }
 
 #main-page nav #health {
-  background-image: url(../img/health.svg);
+  background-image: url(img/health.svg);
 }
 
 #main-page nav #health:after {
@@ -420,7 +420,7 @@ section {
 }
 
 #main-page nav #car {
-  background-image: url(../img/car.svg);
+  background-image: url(img/car.svg);
 }
 
 #main-page nav #car:after {
@@ -437,7 +437,7 @@ section {
   height: auto;
 }
 
-#house-menu > div:before, #house-menu > div:after, #health-menu > div:before, #health-menu > div:after, #car-menu > div:before, #car-menu > div:after {
+#home-menu > div:before, #home-menu > div:after, #health-menu > div:before, #health-menu > div:after, #car-menu > div:before, #car-menu > div:after {
   display: block;
   content: ' ';
   width: 60px;
@@ -448,7 +448,7 @@ section {
   background-repeat: no-repeat;
 }
 
-#car-menu > div, #health-menu > div, #house-menu > div {
+#car-menu > div, #health-menu > div, #home-menu > div {
   box-sizing: border-box;
   padding-left: 20px;
   position: relative;
@@ -461,86 +461,73 @@ section {
   z-index: 10;
 }
 
-#car-menu > div:active, #health-menu > div:active, #house-menu > div:active {
+#car-menu > div:active, #health-menu > div:active, #home-menu > div:active {
   background-color: rgba(151, 151, 151, 0.1);
 }
 
-#car-menu > div:active:before, #health-menu > div:active:before, #house-menu > div:active:before {
+#car-menu > div:active:before, #health-menu > div:active:before, #home-menu > div:active:before {
   background-color: rgba(151, 151, 151, 0.1);
 }
 
-#car-menu > div:not(:last-child), #health-menu > div:not(:last-child), #house-menu > div:not(:last-child) {
+#car-menu > div:not(:last-child), #health-menu > div:not(:last-child), #home-menu > div:not(:last-child) {
   border-bottom: 1px solid rgba(151, 151, 151, 0.28);
 }
 
-#car-menu > div:after, #health-menu > div:after, #house-menu > div:after {
+#car-menu > div:after, #health-menu > div:after, #home-menu > div:after {
   position: absolute;
   top: 0px;
   margin-left: 300px;
   z-index: 20;
-  background-image: url(../img/arrow-gray.svg);
+  background-image: url(img/arrow-gray.svg);
 }
 
 .plumber:before {
-  background-image: url(../img/tap.svg);
+  background-image: url(img/tap.svg);
 }
 
 .electrician:before {
-  background-image: url(../img/power-socket.svg);
+  background-image: url(img/power-socket.svg);
 }
 
 .hood:before {
-  background-image: url(../img/hood.svg);
+  background-image: url(img/hood.svg);
 }
 
 .hotel1:before {
-  background-image: url(../img/hotel1.svg);
+  background-image: url(img/hotel1.svg);
 }
 
 .doctor:before {
-  background-image: url(../img/doctor.svg);
+  background-image: url(img/doctor.svg);
 }
 
 .ambulance:before {
-  background-image: url(../img/ambulance.svg);
+  background-image: url(img/ambulance.svg);
 }
 
 .dog:before {
-  background-image: url(../img/dog.svg);
+  background-image: url(img/dog.svg);
 }
 
 .hotel2:before {
-  background-image: url(../img/hotel2.svg);
+  background-image: url(img/hotel2.svg);
 }
 
 .fuel:before {
-  background-image: url(../img/fuel.svg);
+  background-image: url(img/fuel.svg);
 }
 
 .tow:before {
-  background-image: url(../img/tow.svg);
+  background-image: url(img/tow.svg);
 }
 
 .repair:before {
-  background-image: url(../img/repair.svg);
-}
-
-.specific-title {
-  line-height: 72px;
-  margin-left: 20px;
-  color: #fff;
+  background-image: url(img/repair.svg);
 }
 
 #order-with-photo header {
   background: #948E65;
   height: 72px;
-}
-
-#order-with-photo header img {
-  line-height: 72px;
-  float: right;
-  margin-top: 28px;
-  margin-right: 25px;
 }
 
 #order-with-photo .date-picker {
@@ -551,25 +538,11 @@ section {
   line-height: 72px;
 }
 
-#order-with-photo .date-picker span:nth-of-type(2) {
-  float: right;
-  margin-right: 20px;
-}
-
-#order-with-photo .date-picker span:nth-of-type(1) {
-  margin-left: 20px;
-}
-
-#order-with-photo .date-picker span:nth-of-type(3) {
-  float: right;
-  margin-right: 20px;
-}
-
 #order-with-photo #take-photo {
   position: relative;
   background-color: #F2F2F2;
   height: 140px;
-  background-image: url(../img/photo.svg);
+  background-image: url(img/photo.svg);
   background-position: center 40%;
   background-repeat: no-repeat;
   margin-bottom: 24px;
@@ -583,7 +556,7 @@ section {
 }
 
 #order-with-photo #take-photo:active {
-  background-color: rgba(151, 151, 151, 0.19);
+  background-color: red;
 }
 
 #order-with-photo form > input, #order-with-photo form > button {
@@ -608,28 +581,5 @@ section {
 }
 
 #order-with-photo button:nth-of-type(1) {
-  position: relative;
-  margin-bottom: 40px;
-  background: none;
-  color: #7896A9;
-  font-weight: 400;
-  box-sizing: border-box;
-  padding-left: 10px;
-}
-
-#order-with-photo button:nth-of-type(1):before {
-  position: absolute;
-  left: 35px;
-  bottom: 5px;
-  background-position: center;
-  background-repeat: no-repeat;
-  content: ' ';
-  height: 40px;
-  width: 40px;
-  background-image: url(../img/gps.svg);
-}
-
-#order-with-photo button:nth-of-type(2) {
-  background-color: #948E65;
-  color: #fff;
+  margin-bottom: 20px;
 }
