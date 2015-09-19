@@ -35,14 +35,18 @@ function SetPicture(img) {
 }
 
 var marker;
+var map;
+var geocoder;
+
 function initMap(lat, lng) {
+    geocoder = new google.maps.Geocoder();
      var mapCanvas = document.getElementById('map');
      var mapOptions = {
            center: new google.maps.LatLng(lat, lng),
            zoom: 14,
            mapTypeId: google.maps.MapTypeId.ROADMAP
      }
-     var map = new google.maps.Map(mapCanvas, mapOptions);
+     map = new google.maps.Map(mapCanvas, mapOptions);
 
      marker = new google.maps.Marker({
          position: {lat, lng},
@@ -58,4 +62,30 @@ function readMarkerLocation() {
 
 function ShowError(msg) {
     $("#error").html("Error: " + msg);
+}
+
+function markerToAddress() {
+    var location = marker.getPosition();
+        geocoder.geocode( { 'location': location}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            document.getElementById("address").value =  results[0].formatted_address;
+          } else {
+            alert("Reverse geocode was not successful for the following reason: " + status);
+          }
+    });
+}
+
+function addressToMarker() {
+    var address = document.getElementById("address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+        marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
 }
