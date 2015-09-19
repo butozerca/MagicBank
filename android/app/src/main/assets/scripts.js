@@ -21,3 +21,11 @@ function appendOperation(name, description, price) {
     else
         $("#userOperations").append(name + " (" + price + " zł):<br>" + description + "<br><br>");
 }
+
+function takePhoto() {
+    window.JSInterface.takePhoto();
+}
+
+function SetPicture(img) {
+    $("#userOperations").html("<img src='" + img + "' />");
+}

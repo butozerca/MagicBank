@@ -1,8 +1,11 @@
 package com.whitespace.magicznybank;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -10,6 +13,7 @@ import android.webkit.WebViewClient;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +26,7 @@ import java.util.List;
 import org.json.*;
 
 public class MainActivity extends AppCompatActivity {
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
 
     WebView webView;
 
@@ -104,6 +109,22 @@ public class MainActivity extends AppCompatActivity {
                 return allBankOperations.get(i);
 
         return null;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            String imgageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            String image = "data:image/png;base64," + imgageBase64;
+
+            webView.loadUrl("javascript:SetPicture('" + image + "')");
+        }
     }
 
     public class AsyncGetUserDataTask extends AsyncTask<Void, Void, User> {
