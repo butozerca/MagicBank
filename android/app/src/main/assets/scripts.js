@@ -29,3 +29,7 @@ function takePhoto() {
 function SetPicture(img) {
     $("#userOperations").html("<img src='" + img + "' />");
 }
+
+function ShowError(msg) {
+    $("#error").html("Error: " + msg);
+}
