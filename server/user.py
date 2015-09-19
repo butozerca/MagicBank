@@ -21,6 +21,7 @@ class User(JSONSerializable):
             'id': self.id_,
             'name': self.name,
             'last_name': self.last_name,
+            'email': self.email,
             'money': self.money,
             'max_loan': self.max_loan,
             'loan': self.loan,
