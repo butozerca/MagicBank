@@ -96,6 +96,7 @@ public class JavaScriptInterface {
     public void userLoggedIn() {
         WebViewHelper.RunJsFunction("fillLoggedUserName",
                 "'" + appContext.currentUser.name + " " + appContext.currentUser.surname +"'");
+        WebViewHelper.RunJsFunction("fillAccountBalance", ""+appContext.currentUser.money);
     }
 
 
