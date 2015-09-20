@@ -47,7 +47,7 @@ public class JavaScriptInterface {
         try {
             if (appContext.locationManager == null)
                 return;
-            final Location loc = appContext.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            final Location loc = appContext.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             activity.runOnUiThread(new Runnable() {
                 public void run() {
                     appContext.webView.loadUrl("javascript:initMap(" + loc.getLatitude() +"," + loc.getLongitude() + ")");
@@ -64,7 +64,7 @@ public class JavaScriptInterface {
         String[] q = s.split(" ");
         double lat = Double.valueOf(q[0]);
         double lng = Double.valueOf(q[1]);
-        appContext.markerLocation = new Location(LocationManager.GPS_PROVIDER);
+        appContext.markerLocation = new Location(LocationManager.NETWORK_PROVIDER);
         appContext.markerLocation.setLatitude(lat);
         appContext.markerLocation.setLongitude(lng);
     }
@@ -74,7 +74,7 @@ public class JavaScriptInterface {
         try {
             if (appContext.locationManager == null)
                 return;
-            final Location loc = appContext.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            final Location loc = appContext.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             activity.runOnUiThread(new Runnable() {
                 public void run() {
                     WebViewHelper.RunJsFunction("SetLocationCoords", loc.getLatitude() + "," + loc.getLongitude());
