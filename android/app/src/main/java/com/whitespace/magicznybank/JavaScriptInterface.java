@@ -117,7 +117,7 @@ public class JavaScriptInterface {
 
 
                         StringBuilder result = new StringBuilder("<span class=\"date\" id=\"date\">");
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
                         result.append(sdf.format(myCalendar.getTime()));
                         result.append("</span><span class=\"time\" id=\"time\">");
                         sdf = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
