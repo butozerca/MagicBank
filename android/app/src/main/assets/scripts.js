@@ -27,7 +27,7 @@ function init() {
         takePhoto();
     });
 
-    $("#date-picker").click(function() {
+    $(".date-picker").click(function() {
         window.JSInterface.GetDateTime();
     });
 
@@ -67,6 +67,23 @@ function init() {
          $("#order-with-map").addClass('hide');
          $("#main-page").removeClass('hide');
       });
+
+      $("#confirm-fuel").click(function() {
+            $("#extra-cash").removeClass('hide');
+      });
+
+       $("#extra-cash-cancel").click(function() {
+            $("#extra-cash").addClass('hide');
+       });
+
+       $("#extra-cash-ok").click(function() {
+            timerValue = calculateTimerValue() * 60 + 1;
+            timer();
+
+            $("#extra-cash").addClass('hide');
+            $("#order-with-map").addClass('hide');
+            $("#order-confirmation").removeClass('hide');
+        });
 
     geocoder = new google.maps.Geocoder();
 
@@ -133,7 +150,7 @@ function fillLoggedUserName(name) {
 
 function UpdateTime(value) {
     console.log(value);
-    $("#date-picker").html("<span>Realizacja:</span>" + value);
+    $(".date-picker").html("<span>Realizacja:</span>" + value);
     console.log("dupa");
 }
 

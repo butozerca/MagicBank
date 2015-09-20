@@ -64,23 +64,11 @@
                 <span id='popup-alert-ok'>ZGŁOŚ</span>
             </div>
         </div>
-        <div class="popup-alert extra-cash hide">
-            <div>
-                <h3>Informacja o kosztach</h3>
-                <p>
-                   Twój pakiet nie pozwala pozwala na dowóz paliwa.
-Koszt takiej usługi to:
-                </p>
-                <p id='extra-payment'>240zł</p>
-                <span class='go-down'>ANULUJ</span>
-                <span class='go-down'>ZGŁOŚ</span>
-            </div>
-        </div>
         <header>
             <span class='specific-title'>Hydraulik</span>
             <img src='img/close.svg' id='plumber-close'>
         </header>
-        <div class='date-picker' id='date-picker'>
+        <div class='date-picker'>
             <span>Realizacja:</span>
             <span class="date" id='date'>20/09/2015</span>
             <span class="time" id='time'>12:00</span>
@@ -96,6 +84,18 @@ Koszt takiej usługi to:
         </form>
     </section>
     <section id='order-with-map' class='hide'>
+        <div class="popup-alert extra-cash hide" id='extra-cash'>
+            <div>
+                <h3>Informacja o kosztach</h3>
+                <p>
+                    Twój pakiet nie pozwala pozwala na dowóz paliwa.
+                    Koszt takiej usługi to:
+                </p>
+                <p id='extra-payment'>240zł</p>
+                <span class='go-down' id='extra-cash-cancel'>ANULUJ</span>
+                <span class='go-down' id='extra-cash-ok'>ZGŁOŚ</span>
+            </div>
+        </div>
         <header>
             <span class='specific-title'>Dowóz paliwa</span>
             <img src='img/close.svg' id='order-with-map-close'>
@@ -110,13 +110,12 @@ Koszt takiej usługi to:
         <form>
             <input id="address-bar-map-order" type='text' placeholder='Adres'>
             <div class='button' onclick="revertToStartingLocation()">Użyj mojej pozycji</div>
-            <div class="button">ZGŁOŚ</div>
+            <div class="button" id='confirm-fuel'>ZGŁOŚ</div>
         </form>
     </section>
     <section id='order-confirmation' class='hide'>
         <header>
-            <span class='specific-title'>Hydraulik</span>
-            <img src='img/close.svg'>
+            <span class='specific-title'>Oczekiwanie</span>
         </header>
         <p>Zgłoszenie jest przetwarzane.
 Zostaniesz w krótce 
