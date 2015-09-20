@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.provider.MediaStore;
+import android.telephony.ServiceState;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.DatePicker;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.List;
 
 /**
  * Created by Jakub on 19.09.2015.
@@ -185,6 +187,43 @@ public class JavaScriptInterface {
             WebViewHelper.LoginError(e.getMessage());
         }
     }
+
+    @JavascriptInterface
+    public void checkForService(String serviceName) {
+        boolean success = false;
+        for (Service svc : appContext.currentUser.services) {
+            if (serviceName.equals(svc.name) && svc.tokens > 0) {
+                svc.tokens--;
+                success = true;
+                break;
+            }
+        }
+        if (success) {
+            WebViewHelper.RunJsFunction("plumberOrderSuccess", "");
+            return;
+        }
+
+        boolean success2 = false;
+        for (Service svc : appContext.currentUser.buyableServices) {
+            if (serviceName.equals(svc.name)) {
+                success2 = true;
+                WebViewHelper.RunJsFunction("popupServiceCost", svc.id + ":" + svc.name + ":" + svc.price);
+                break;
+            }
+        }
+        if (!success2) {
+            WebViewHelper.RunJsFunction("popupCantFindSuitableService", serviceName);
+            return;
+        }
+        for (Service svc : appContext.currentUser.services) {
+            if (serviceName.equals(svc.name) && svc.tokens > 0) {
+                svc.tokens--;
+                WebViewHelper.RunJsFunction("plumberOrderSuccess", "");
+                break;
+            }
+        }
+    }
+
 
     private void LoginOutput(User user) {
         appContext.currentUser = user;

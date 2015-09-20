@@ -193,3 +193,15 @@ function plumberOrderSuccess() {
     $('#order-with-photo').toggleClass('hide', false)
     $('#main-page').toggleClass('hide', true)
 }
+
+function popupServiceCost(serviceTuple) {
+    var split = serviceTuple.split(":")
+    var svcid = split[0]
+    var svcname = split[1]
+    var svcprice = split[2]
+    //TODO
+}
+
+function popupCantFindSuitableService(serviceName) {
+    //TODO
+}
