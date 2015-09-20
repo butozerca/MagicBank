@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Magiczny Bank</title>
+    <meta name="description" content="Magiczny Bank" />
 
     <script src="jquery-2.1.4.js"></script>
     <script src="scripts.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
-
-    <meta name="description" content="Magiczny Bank" />
-
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="msapplication-tap-highlight" content="no" />
@@ -19,35 +17,34 @@
     <section id='login-page'>
         <form>
             <h1>Logowanie</h1>
-            <input id='login-username' type='text' placeholder="Login" value="soperkrul">
-            <input id='login-password' type="password" placeholder="Hasło" value="Dupa.8">
-            <div id='login-button'>ZALOGUJ</div>
+            <input id='login-username' type='text' placeholder="Login">
+            <input id='login-password' type="password" placeholder="Hasło">
+            <div id='login-button' class="button">ZALOGUJ</div>
             <div id='login-error'></div>
         </form>
-
     </section>
     <section id='main-page'>
         <header>
-            <h2>Jan Kowalski</h2>
+            <h2 id='leged-user'>Jan Kowalski</h2>
         </header>
         <nav>
-            <div id='home' onclick="switchToHouse()"></div>
-            <div id='health' onclick="switchToHealth()"></div>
-            <div id='car' onclick="switchToCar()"></div>
+            <div id='home'></div>
+            <div id='health'></div>
+            <div id='car'></div>
         </nav>
         <div id='main-menu'>
-            <div id='home-menu' class='hide'>
+            <div id='house-menu' class="hide">
                 <div class="plumber">Hydraulik</div>
                 <div class="electrician">Elektryk</div>
                 <div class="hood">Awaria RTV/AGD</div>
                 <div class="hotel1">Hotel</div>
             </div>
-            <div id='health-menu' class='hide'>
+            <div id='health-menu' class="hide">
                 <div class="doctor" >Doktor</div>
                 <div class="ambulance">Transport medyczny</div>
                 <div class="dog">Opieka nad zwierzętami</div>
             </div>
-            <div id='car-menu' class='hide'>
+            <div id='car-menu'>
                 <div class="tow">Holowanie</div>
                 <div class="repair">Naprawa pojazdu</div>
                 <div class="fuel">Dowóz paliwa</div>
@@ -56,13 +53,23 @@
         </div>
     </section>
     <section id='order-with-photo'>
+        <div class="popup-alert">
+            <div>
+                <h3>Informacja o kosztach</h3>
+                <p>
+                    Twój pakiet pozwala na wykorzystanie 4 zgłoszeń. Pozostało ich 3. Czy chesz je wykorzystać? 
+                </p>
+                <span>ANULUJ</span>
+                <span>ZGŁOŚ</span>
+            </div>
+        </div>
         <header>
-            <span class='specific-title'></span>
+            <span class='specific-title'>Hydraulik</span>
+            <img src='img/close.svg'>
         </header>
-        <div class='date-picker'>
+        <div id='date-picker' class="date-picker">
             <span>Realizacja:</span>
-            <span class="date">09/09/09</span>
-            <span class="time">09:09</span>
+            <span class="date-time" id='date-time'>09/09/09 09:09</span>
         </div>
         <div id='take-photo'>
             <span>Załącz zdjęcie</span>
@@ -70,13 +77,29 @@
         <form>
             <input type='text' placeholder='Opis problemu'>
             <input type='text' placeholder='Adres'>
-            <button>Użyj mojej pozycji</button>
-            <button>ZGŁOŚ</button>
+            <div class='button'>Użyj mojej pozycji</div>
+            <div class="button">ZGŁOŚ</div>
         </form>
     </section>
     <section id='order-with-map'>
     </section>
     <section id='order-confirmation'>
+        <header>
+            <span class='specific-title'>Hydraulik</span>
+            <img src='img/close.svg'>
+        </header>
+        <p>Zgłoszenie jest przetwarzane.
+Zostaniesz w krótce 
+poinformowany o czasie realizacji.</p>
+        <div class='timer-icon'>
+            <div class="timer-text-clock">
+            10:00
+            </div>
+        </div>
+        
+        <form>
+            <div class="button">ZGŁOŚ</div>
+        </form>
     </section>
 </body>
 </html>

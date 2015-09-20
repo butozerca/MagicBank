@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 	HTML5 Reset :: style.css
 	----------------------------------------------------------
@@ -244,7 +245,11 @@ input[type=button] {
   zoom: 1;
 }
 
-.center-center, #login-page form {
+.button {
+  text-align: center;
+}
+
+.center-center, #login-page form, #order-with-photo .popup-alert > div, .timer-icon {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -270,6 +275,12 @@ section {
   height: 100vh;
 }
 
+#login-button {
+  line-height: 46px;
+  text-align: center;
+  line-height: 47px;
+}
+
 #login-page {
   background-color: blue;
 }
@@ -280,7 +291,7 @@ section {
   height: 400px;
 }
 
-#login-page form h1, #login-page form input, #login-page form button {
+#login-page form h1, #login-page form input, #login-page form .button {
   display: block;
 }
 
@@ -291,7 +302,7 @@ section {
   color: rgba(65, 65, 65, 0.81);
 }
 
-#login-page form button, #login-page form input {
+#login-page form .button, #login-page form input {
   width: 220px;
   height: 46px;
   margin: 0 auto;
@@ -306,7 +317,7 @@ section {
   padding: 0 25px;
 }
 
-#login-page form button {
+#login-page form .button {
   background: #414141;
   color: #F7F7F7;
   border: none;
@@ -437,7 +448,7 @@ section {
   height: auto;
 }
 
-#home-menu > div:before, #home-menu > div:after, #health-menu > div:before, #health-menu > div:after, #car-menu > div:before, #car-menu > div:after {
+#house-menu > div:before, #house-menu > div:after, #health-menu > div:before, #health-menu > div:after, #car-menu > div:before, #car-menu > div:after {
   display: block;
   content: ' ';
   width: 60px;
@@ -448,7 +459,7 @@ section {
   background-repeat: no-repeat;
 }
 
-#car-menu > div, #health-menu > div, #home-menu > div {
+#car-menu > div, #health-menu > div, #house-menu > div {
   box-sizing: border-box;
   padding-left: 20px;
   position: relative;
@@ -461,19 +472,19 @@ section {
   z-index: 10;
 }
 
-#car-menu > div:active, #health-menu > div:active, #home-menu > div:active {
+#car-menu > div:active, #health-menu > div:active, #house-menu > div:active {
   background-color: rgba(151, 151, 151, 0.1);
 }
 
-#car-menu > div:active:before, #health-menu > div:active:before, #home-menu > div:active:before {
+#car-menu > div:active:before, #health-menu > div:active:before, #house-menu > div:active:before {
   background-color: rgba(151, 151, 151, 0.1);
 }
 
-#car-menu > div:not(:last-child), #health-menu > div:not(:last-child), #home-menu > div:not(:last-child) {
+#car-menu > div:not(:last-child), #health-menu > div:not(:last-child), #house-menu > div:not(:last-child) {
   border-bottom: 1px solid rgba(151, 151, 151, 0.28);
 }
 
-#car-menu > div:after, #health-menu > div:after, #home-menu > div:after {
+#car-menu > div:after, #health-menu > div:after, #house-menu > div:after {
   position: absolute;
   top: 0px;
   margin-left: 300px;
@@ -525,9 +536,72 @@ section {
   background-image: url(img/repair.svg);
 }
 
+.specific-title {
+  line-height: 72px;
+  margin-left: 20px;
+  color: #fff;
+}
+
+#order-with-photo .popup-alert {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  z-index: 20;
+}
+
+#order-with-photo .popup-alert > div {
+  width: 280px;
+  height: 264px;
+  box-sizing: border-box;
+  padding: 20px;
+  background: #FAFAFA;
+  box-shadow: 0px 15px 12px 0px rgba(0, 0, 0, 0.22), 0px 19px 38px 0px rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.54);
+  line-height: 24px;
+}
+
+#order-with-photo .popup-alert > div span {
+  margin-top: 50px;
+  /* ZGŁOŚ: */
+  font-family: Roboto-Medium;
+  font-size: 14px;
+  color: #4A90E2;
+  letter-spacing: 0.5px;
+  line-height: 16px;
+  display: inline-block;
+}
+
+#order-with-photo .popup-alert > div span:nth-of-type(1) {
+  margin-left: 100px;
+  margin-right: 20px;
+}
+
+#order-with-photo .popup-alert > div h3 {
+  font-family: Roboto-Medium;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.87);
+  line-height: 24px;
+}
+
+#order-with-photo .popup-alert > div p {
+  margin-top: 20px;
+  color: rgba(0, 0, 0, 0.8);
+}
+
 #order-with-photo header {
+  position: relative;
   background: #948E65;
   height: 72px;
+}
+
+#order-with-photo header img {
+  line-height: 72px;
+  float: right;
+  margin-top: 28px;
+  margin-right: 25px;
 }
 
 #order-with-photo .date-picker {
@@ -538,7 +612,22 @@ section {
   line-height: 72px;
 }
 
+#order-with-photo .date-picker span:nth-of-type(2) {
+  float: right;
+  margin-right: 20px;
+}
+
+#order-with-photo .date-picker span:nth-of-type(1) {
+  margin-left: 20px;
+}
+
+#order-with-photo .date-picker span:nth-of-type(3) {
+  float: right;
+  margin-right: 20px;
+}
+
 #order-with-photo #take-photo {
+  overflow: hidden;
   position: relative;
   background-color: #F2F2F2;
   height: 140px;
@@ -546,6 +635,12 @@ section {
   background-position: center 40%;
   background-repeat: no-repeat;
   margin-bottom: 24px;
+}
+
+#order-with-photo #take-photo img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
 }
 
 #order-with-photo #take-photo span {
@@ -556,10 +651,10 @@ section {
 }
 
 #order-with-photo #take-photo:active {
-  background-color: red;
+  background-color: rgba(151, 151, 151, 0.19);
 }
 
-#order-with-photo form > input, #order-with-photo form > button {
+#order-with-photo form > input, #order-with-photo form > .button {
   box-sizing: border-box;
   display: block;
   margin: 0 auto;
@@ -574,12 +669,100 @@ section {
   padding: 5px 2px;
 }
 
-#order-with-photo button {
+#order-with-photo .button {
   width: 85%;
   height: 50px;
+  line-height: 50px;
   font-size: 1rem;
 }
 
-#order-with-photo button:nth-of-type(1) {
-  margin-bottom: 20px;
+#order-with-photo .button:nth-of-type(1) {
+  position: relative;
+  margin-bottom: 40px;
+  background: none;
+  color: #7896A9;
+  font-weight: 400;
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+
+#order-with-photo .button:nth-of-type(1):before {
+  position: absolute;
+  left: 35px;
+  bottom: 5px;
+  background-position: center;
+  background-repeat: no-repeat;
+  content: ' ';
+  height: 40px;
+  width: 40px;
+  background-image: url(img/gps.svg);
+}
+
+#order-with-photo .button:nth-of-type(2) {
+  background-color: #948E65;
+  color: #fff;
+}
+
+.timer-icon {
+  background-image: url(img/timer.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100px;
+  height: 100px;
+}
+
+.timer-icon > div {
+  position: absolute;
+  bottom: -20px;
+  left: 23px;
+  font-family: Roboto-Medium;
+}
+
+#order-confirmation header {
+  position: relative;
+  background: #948E65;
+  height: 72px;
+}
+
+#order-confirmation header img {
+  line-height: 72px;
+  float: right;
+  margin-top: 28px;
+  margin-right: 25px;
+}
+
+#order-confirmation > p {
+  width: 76%;
+  margin: 0 auto;
+  margin-top: 70px;
+}
+
+#order-confirmation form > input, #order-confirmation form > .button {
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto;
+  border: none;
+}
+
+#order-confirmation form input {
+  width: 90%;
+  height: 42px;
+  margin-bottom: 22px;
+  border-bottom: solid 2px #948E65;
+  padding: 5px 2px;
+}
+
+#order-confirmation .button {
+  width: 85%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 1rem;
+}
+
+#order-confirmation .button:nth-of-type(1) {
+  background-color: #948E65;
+  color: #fff;
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
 }

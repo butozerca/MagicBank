@@ -12,6 +12,15 @@ function init() {
             Login(login, pass);
         }
     });
+
+    $("#take-photo").click(function() {
+        takePhoto();
+    });
+
+     $("#date-picker").click(function() {
+       dateTimePicker();
+    });
+
 }
 
 function Login(login, pass) {
@@ -24,6 +33,14 @@ function LoginError(msg) {
 
 function LoginSuccess() {
     $("#login-page").addClass('hide');
+}
+
+function dateTimePicker() {
+    window.JSInterface.GetDateTime();
+}
+
+function UpdateTime(value) {
+    $("#date-time").html(value);
 }
 
 function FillUserInfo(id, name, surname, email) {
@@ -46,7 +63,7 @@ function readLocation() {
 }
 
 function SetPicture(img) {
-    $("#img").html("<img src='" + img + "' />");
+    $("#take-photo").html("<img src='" + img + "' />");
 }
 
 var marker;
