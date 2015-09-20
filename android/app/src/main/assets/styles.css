@@ -282,7 +282,7 @@ section {
 }
 
 #login-page {
-  background-color: blue;
+  background-image: url(img/beach-sunset.jpg);
 }
 
 #login-page form {
