@@ -1,6 +1,8 @@
 package com.whitespace.magicznybank;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -9,7 +11,13 @@ import android.location.LocationProvider;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by Jakub on 19.09.2015.
@@ -63,6 +71,51 @@ public class JavaScriptInterface {
         appContext.markerLocation = new Location(LocationManager.GPS_PROVIDER);
         appContext.markerLocation.setLatitude(lat);
         appContext.markerLocation.setLongitude(lng);
+    }
+
+    Calendar myCalendar = Calendar.getInstance();
+    TimePickerDialog tpd;
+
+    @JavascriptInterface
+    public void GetDateTime() {
+        Log.d("KROL", "GetDAteTime");
+
+        tpd = new TimePickerDialog(activity,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        myCalendar.set(Calendar.HOUR, hourOfDay);
+                        myCalendar.set(Calendar.MINUTE, minute);
+
+
+                        String myFormat = "MM/dd/yy HH:mm";
+                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
+
+                        WebViewHelper.RunJsFunction("UpdateTime", "'" + sdf.format(myCalendar.getTime()) + "'");
+                    }
+                }, myCalendar.get(Calendar.HOUR), myCalendar.get(Calendar.MINUTE), false);
+
+        DatePickerDialog dpd = new DatePickerDialog(activity,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, monthOfYear);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        tpd.show();
+
+                    }
+                }, myCalendar.get(Calendar.YEAR),
+                   myCalendar.get(Calendar.MONTH),
+                   myCalendar.get(Calendar.DAY_OF_MONTH));
+
+        dpd.show();
     }
 
     @JavascriptInterface
