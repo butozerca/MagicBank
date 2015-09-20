@@ -282,8 +282,7 @@ section {
 }
 
 #login-page {
-  /*background-color: blue;*/
-  background-image: url(img/beach-sunset.jpg);
+  background-color: blue;
 }
 
 #login-page form {
@@ -349,6 +348,16 @@ section {
   position: absolute;
   top: 30px;
   left: 20px;
+}
+
+#main-page #archive {
+  float: right;
+  width: 30px;
+  height: 36px;
+  background: url(img/archive.svg) no-repeat center;
+  position: relative;
+  margin-right: 45px;
+  margin-bottom: 80px;
 }
 
 #main-page nav {
@@ -456,7 +465,7 @@ section {
 
 #main-page #main-menu {
   background-color: #fff;
-  overflow-y: scroll;
+  overflow: scroll;
   padding-top: 20px;
 }
 
@@ -771,6 +780,19 @@ section {
   font-family: Roboto-Medium;
 }
 
+#credit-button {
+  width: 80%;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  margin: 0 auto;
+  background: #c18703;
+  box-sizing: border-box;
+  padding-left: 37px;
+  font-family: Roboto-Bold;
+  margin-bottom: 20px;
+}
+
 #order-confirmation header {
   position: relative;
   background: #948E65;
@@ -785,7 +807,7 @@ section {
 }
 
 #order-confirmation > p {
-  width: 76%;
+  width: 80%;
   margin: 0 auto;
   margin-top: 70px;
 }
