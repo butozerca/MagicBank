@@ -44,10 +44,13 @@ function init() {
      });
 
      $("#popup-alert-ok").click(function() {
+        timerValue = calculateTimerValue() * 60 + 1;
+        timer();
+
         $("#popup-alert").addClass('hide');
         $("#order-with-photo").addClass('hide');
         $("#order-confirmation").removeClass('hide');
-        timerValue = 5*60;
+
      });
 
      $("#plumber-close").click(function() {
@@ -60,10 +63,35 @@ function init() {
          $("#main-page").removeClass('hide');
      });
 
+     $("#order-with-map-close").click(function() {
+         $("#order-with-map").addClass('hide');
+         $("#main-page").removeClass('hide');
+      });
+
     geocoder = new google.maps.Geocoder();
 
     timerValue = 10*60;
     timerInterval = setInterval(function () { timer() }, 1000);
+}
+
+function calculateTimerValue() {
+    var oldDate = $("#date").html();
+    var dateString = oldDate[3] + oldDate[4] + "/" + oldDate[0] + oldDate[1] + "/" + oldDate[6] + oldDate[7] + oldDate[8] + oldDate[9];
+    dateString += " " + $("#time").html() + ":00";
+
+    console.log(dateString);
+    var date = Date.parse(dateString);
+    console.log(date);
+    var now = Date.now();
+    console.log(now);
+    var diff = Math.abs(date - now);
+    console.log(diff);
+    var minutes = Math.floor((diff/1000)/60);
+    console.log(minutes);
+    if(minutes < 60)
+        minutes = 60;
+
+    return minutes;
 }
 
 function timer() {
@@ -74,13 +102,18 @@ function timer() {
         window.clearInterval(timerInterval);
     }
 
-    var minutes = parseInt(timerValue / 60);
+    var hours = parseInt(timerValue / 3600);
+    if(hours < 10)
+            hours = "0" + hours;
+
+    var minutes = parseInt((timerValue % 3600) / 60);
     if(minutes < 10)
         minutes = "0" + minutes;
+
     var seconds = timerValue % 60;
     if(seconds < 10)
         seconds = "0" + seconds;
-    $("#timer-text-clock").html(minutes + ":" + seconds);
+    $("#timer-text-clock").html(hours + ":" + minutes + ":" + seconds);
 }
 
 function LoginError(msg) {
