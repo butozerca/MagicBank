@@ -63,6 +63,12 @@ function init() {
          $("#main-page").removeClass('hide');
      });
 
+     $("#credit-button").click(function() {
+             $("#order-confirmation").addClass('hide');
+              $("#main-page").removeClass('hide');
+             window.JSInterface.requestLoan(800.0);
+          });
+
      $("#order-with-map-close").click(function() {
          $("#order-with-map").addClass('hide');
          $("#main-page").removeClass('hide');
