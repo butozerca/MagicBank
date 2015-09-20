@@ -148,6 +148,18 @@ function SetLocationCoords(lat, lng) {
     });
 }
 
+function SetLocationCoords2(lat, lng) {
+    $("#address-bar-map-order").val(lat + ", " + lng);
+
+    geocoder.geocode( { 'location': new google.maps.LatLng(lat, lng) }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            $("#address-bar-map-order").val(results[0].formatted_address);
+        } else {
+            console.log("Reverse geocode was not successful for the following reason: " + status);
+        }
+    });
+}
+
 function FillUserInfo(id, name, surname, email) {
     $("#userInfo").html(id + "<br>" + name + "<br>" + surname + "<br>" + email);
 }
@@ -171,10 +183,8 @@ function SetPicture(img) {
     $("#take-photo").html("<img src='" + img + "' />");
 }
 
-
-
 function initMap(lat, lng) {
-    var mapCanvas = document.getElementById('map');
+    var mapCanvas = document.getElementById('google-map');
     var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
           zoom: 14,
@@ -187,6 +197,11 @@ function initMap(lat, lng) {
         map: map,
         title: 'Tu jestem!',
         draggable: true
+    });
+
+    SetLocationCoords2(marker.getPosition().lat(), marker.getPosition().lng())
+    google.maps.event.addListener(marker, 'dragend', function() {
+        SetLocationCoords2(marker.getPosition().lat(), marker.getPosition().lng())
     });
  }
 
@@ -274,10 +289,15 @@ function popupCantFindSuitableService(serviceName) {
 }
 
 function refuelOrderStart() {
+    setupMapOrder()
     $('#order-with-map').toggleClass('hide', false)
     $('#main-page').toggleClass('hide', true)
 }
 
 function refuelAfterFormCompleted() {
     window.JSInterface.checkForService('Dowóz paliwa')
+}
+
+function setupMapOrder() {
+    readLocation()
 }

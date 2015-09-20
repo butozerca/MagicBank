@@ -332,6 +332,17 @@ section {
   background: #fff;
 }
 
+#main-page header > div {
+  font-size: 1.2rem;
+  position: absolute;
+  left: 20px;
+  top: 70px;
+}
+
+#main-page header > div > span:after {
+  content: 'zł';
+}
+
 #main-page header > h2 {
   font-size: 2rem;
   position: absolute;
@@ -723,6 +734,10 @@ section {
 
 #order-with-map header {
   background: #7896A9 !important;
+}
+
+#order-with-map input {
+  border-bottom-color: #7896A9 !important;
 }
 
 #order-with-map .button:nth-of-type(1) {
