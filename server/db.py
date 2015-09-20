@@ -75,7 +75,7 @@ class DB:
                     '606-666-660', 655),
                 '7': Service('7', 'Dowóz paliwa', 'car', 1, 25,
                     'Brakło paliwa, a stacji nie ma nigdzie w zasięgu wzroku?'
-                    'To sprawa dla nich', '513-622-721', 240'),
+                    'To sprawa dla nich', '513-622-721', '240')
             }),
         }
         self.histories = defaultdict(list)
