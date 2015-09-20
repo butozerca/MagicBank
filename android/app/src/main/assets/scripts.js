@@ -226,3 +226,12 @@ function popupServiceCost(serviceTuple) {
 function popupCantFindSuitableService(serviceName) {
     //TODO
 }
+
+function refuelOrderStart() {
+    $('#order-with-map').toggleClass('hide', false)
+    $('#main-page').toggleClass('hide', true)
+}
+
+function refuelAfterFormCompleted() {
+    window.JSInterface.checkForService('Dowóz paliwa')
+}
