@@ -5,18 +5,22 @@
     <title>Magiczny Bank</title>
     <meta name="description" content="Magiczny Bank" />
 
+    <script src="jquery-2.1.4.js"></script>
+    <script src="scripts.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="msapplication-tap-highlight" content="no" />
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body>
+<body onload="init();">
     <section id='login-page'>
         <form>
             <h1>Logowanie</h1>
             <input id='login-username' type='text' placeholder="Login">
             <input id='login-password' type="password" placeholder="Hasło">
             <div id='login-button' class="button">ZALOGUJ</div>
+            <div id='login-error'></div>
         </form>
     </section>
     <section id='main-page'>
@@ -63,10 +67,9 @@
             <span class='specific-title'>Hydraulik</span>
             <img src='img/close.svg'>
         </header>
-        <div class='date-picker'>
+        <div id='date-picker' class="date-picker">
             <span>Realizacja:</span>
-            <span class="date">09/09/09</span>
-            <span class="time">09:09</span>
+            <span class="date-time" id='date-time'>09/09/09 09:09</span>
         </div>
         <div id='take-photo'>
             <span>Załącz zdjęcie</span>
