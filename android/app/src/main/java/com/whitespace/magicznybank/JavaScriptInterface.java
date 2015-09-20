@@ -29,8 +29,8 @@ public class JavaScriptInterface {
     private Activity activity;
     private ApplicationContext appContext;
 
-    public JavaScriptInterface(Activity activiy, ApplicationContext appContext) {
-        this.activity = activiy;
+    public JavaScriptInterface(Activity activity, ApplicationContext appContext) {
+        this.activity = activity;
         this.appContext = appContext;
     }
 
@@ -105,7 +105,7 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public void GetDateTime() {
-        Log.d("KROL", "GetDAteTime");
+        Log.d("KROL", "GetDateTime");
 
         tpd = new TimePickerDialog(activity,
                 new TimePickerDialog.OnTimeSetListener() {

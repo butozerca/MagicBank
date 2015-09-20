@@ -101,7 +101,7 @@ function calculateTimerValue() {
     console.log(date);
     var now = Date.now();
     console.log(now);
-    var diff = Math.abs(date - now);
+    var diff = date - now;
     console.log(diff);
     var minutes = Math.floor((diff/1000)/60);
     console.log(minutes);
