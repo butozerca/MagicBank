@@ -79,7 +79,9 @@ function LoginSuccess() {
 }
 
 function UpdateTime(value) {
-    $("#date-time").html(value);
+    console.log(value);
+    $("#date-picker").html("<span>Realizacja:</span>" + value);
+    console.log("dupa");
 }
 
 function SetLocationCoords(lat, lng) {
