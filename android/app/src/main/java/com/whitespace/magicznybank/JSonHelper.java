@@ -65,8 +65,9 @@ public class JSonHelper {
                     double estimate = buyableservicesArr.getJSONObject(i).getDouble("estimate");
                     String name = buyableservicesArr.getJSONObject(i).getString("name");
                     String description = buyableservicesArr.getJSONObject(i).getString("description");
+                    int price = servicesArr.getJSONObject(i).getInt("price");
 
-                    Service service = new Service(id, tokens, estimate, name, description);
+                    Service service = new Service(id, tokens, estimate, name, description, price);
                     user.buyableServices.add(service);
                 } catch (JSONException e) {
                     Log.d("KROL", "Error - problem with parsing buyable service.\n" + e.getMessage());
