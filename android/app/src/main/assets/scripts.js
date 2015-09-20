@@ -147,6 +147,9 @@ function fillLoggedUserName(name) {
     $("#logged-user").html(name)
 }
 
+function fillAccountBalance(amount) {
+    $("#account-balance").html(amount)
+}
 
 function UpdateTime(value) {
     console.log(value);
