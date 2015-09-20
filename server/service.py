@@ -21,4 +21,5 @@ class Service(JSONSerializable):
             'estimate': self.estimate,
             'description': self.description,
             'phone': self.phone,
+            'price': self.price,
         }
