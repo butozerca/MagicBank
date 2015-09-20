@@ -4,6 +4,7 @@ var geocoder;
 
 var timerInterval;
 var timerValue;
+var startingLocation;
 
 function init() {
     $("#login-button").click(function() {
@@ -151,6 +152,7 @@ function SetPicture(img) {
 }
 
 function initMap(lat, lng) {
+    startingLocation = new google.maps.LatLng(lat, lng);
     var mapCanvas = document.getElementById('google-map');
     var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
@@ -174,6 +176,11 @@ function initMap(lat, lng) {
 
 function readMarkerLocation() {
     window.JSInterface.readMarkerLocation(marker.getPosition().lat() + " " + marker.getPosition().lng());
+}
+
+function revertToStartingLocation() {
+    marker.setPosition(startingLocation)
+    map.setCenter(startingLocation)
 }
 
 function ShowError(msg) {
