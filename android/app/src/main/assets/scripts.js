@@ -4,6 +4,8 @@ var geocoder;
 
 function init() {
     $("#login-button").click(function() {
+        console.log("dupa");
+
         var login = $("#login-username").val();
         var pass = $("#login-password").val();
         if(login == null || pass == null) {
