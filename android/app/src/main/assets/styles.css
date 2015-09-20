@@ -245,6 +245,10 @@ input[type=button] {
   zoom: 1;
 }
 
+.button {
+  text-align: center;
+}
+
 .center-center, #login-page form, #order-with-photo .popup-alert > div {
   position: absolute;
   top: 50%;
@@ -269,6 +273,12 @@ body {
 section {
   position: relative;
   height: 100vh;
+}
+
+#login-button {
+  line-height: 46px;
+  text-align: center;
+  line-height: 47px;
 }
 
 #login-page {
@@ -662,6 +672,7 @@ section {
 #order-with-photo .button {
   width: 85%;
   height: 50px;
+  line-height: 50px;
   font-size: 1rem;
 }
 
