@@ -111,7 +111,7 @@ function markerToAddress() {
     var location = marker.getPosition();
     geocoder.geocode( { 'location': location}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            document.getElementById("address").value =  results[0].formatted_address;
+            document.getElementById("address").value = results[0].formatted_address;
         } else {
             alert("Reverse geocode was not successful for the following reason: " + status);
         }
@@ -131,20 +131,28 @@ function addressToMarker() {
 }
 
 function switchToHouse() {
-    $('#home-menu').toggleClass('hide', false)
+    $('#house-menu').toggleClass('hide', false)
     $('#car-menu').toggleClass('hide', true)
     $('#health-menu').toggleClass('hide', true)
 }
 
 function switchToCar() {
-    $('#home-menu').toggleClass('hide', true)
+    $('#house-menu').toggleClass('hide', true)
     $('#car-menu').toggleClass('hide', false)
     $('#health-menu').toggleClass('hide', true)
 }
 
 function switchToHealth() {
-    $('#home-menu').toggleClass('hide', true)
+    $('#house-menu').toggleClass('hide', true)
     $('#car-menu').toggleClass('hide', true)
     $('#health-menu').toggleClass('hide', false)
 }
 
+function plumberOrderStart() {
+    window.JSInterface.checkForService('Hydraulik')
+}
+
+function plumberOrderSuccess() {
+    $('#order-with-photo').toggleClass('hide', false)
+    $('#main-page').toggleClass('hide', true)
+}
