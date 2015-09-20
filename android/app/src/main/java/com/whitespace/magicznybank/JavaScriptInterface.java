@@ -73,6 +73,24 @@ public class JavaScriptInterface {
         appContext.markerLocation.setLongitude(lng);
     }
 
+    @JavascriptInterface
+    public void UseCurrentLocation() {
+        try {
+            if (appContext.locationManager == null)
+                return;
+            final Location loc = appContext.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            activity.runOnUiThread(new Runnable() {
+                public void run() {
+                    WebViewHelper.RunJsFunction("SetLocationCoords", loc.getLatitude() + "," + loc.getLongitude());
+                }
+            });
+            appContext.location = loc;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     Calendar myCalendar = Calendar.getInstance();
     TimePickerDialog tpd;
 

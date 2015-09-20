@@ -1,3 +1,7 @@
+var marker;
+var map;
+var geocoder;
+
 function init() {
     $("#login-button").click(function() {
         var login = $("#login-username").val();
@@ -9,7 +13,7 @@ function init() {
             LoginError("Pola login i haslo nie moga byc puste!");
         }
         else {
-            Login(login, pass);
+            window.JSInterface.login(login + ";" + pass);
         }
     });
 
@@ -17,15 +21,17 @@ function init() {
         takePhoto();
     });
 
-     $("#date-picker").click(function() {
-       dateTimePicker();
+    $("#date-picker").click(function() {
+        window.JSInterface.GetDateTime();
     });
 
+    $("#use-location").click(function() {
+        window.JSInterface.UseCurrentLocation();
+    });
+
+     geocoder = new google.maps.Geocoder();
 }
 
-function Login(login, pass) {
-    window.JSInterface.login(login + ";" + pass);
-}
 
 function LoginError(msg) {
     $("#login-error").html(msg);
@@ -35,12 +41,20 @@ function LoginSuccess() {
     $("#login-page").addClass('hide');
 }
 
-function dateTimePicker() {
-    window.JSInterface.GetDateTime();
-}
-
 function UpdateTime(value) {
     $("#date-time").html(value);
+}
+
+function SetLocationCoords(lat, lng) {
+    $("#address").val(lat + ", " + lng);
+
+    geocoder.geocode( { 'location': new google.maps.LatLng(lat, lng) }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            $("#address").val(results[0].formatted_address);
+        } else {
+            console.log("Reverse geocode was not successful for the following reason: " + status);
+        }
+    });
 }
 
 function FillUserInfo(id, name, surname, email) {
@@ -66,9 +80,7 @@ function SetPicture(img) {
     $("#take-photo").html("<img src='" + img + "' />");
 }
 
-var marker;
-var map;
-var geocoder;
+
 
 function initMap(lat, lng) {
     var mapCanvas = document.getElementById('map');
@@ -78,7 +90,7 @@ function initMap(lat, lng) {
           mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(mapCanvas, mapOptions);
-    geocoder = new google.maps.Geocoder();
+
     marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: map,
