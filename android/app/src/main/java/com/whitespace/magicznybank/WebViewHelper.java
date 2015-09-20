@@ -1,6 +1,7 @@
 package com.whitespace.magicznybank;
 
 import android.app.Activity;
+import android.util.Log;
 import android.webkit.WebView;
 
 /**

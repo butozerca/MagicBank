@@ -75,8 +75,14 @@ function LoginError(msg) {
 }
 
 function LoginSuccess() {
+    window.JSInterface.userLoggedIn();
     $("#login-page").addClass('hide');
 }
+
+function fillLoggedUserName(name) {
+    $("#logged-user").html(name)
+}
+
 
 function UpdateTime(value) {
     console.log(value);
@@ -171,29 +177,42 @@ function addressToMarker() {
 
 function switchToHouse() {
     $('#house-menu').toggleClass('hide', false)
+    $('#home').toggleClass('hideafter', false)
     $('#car-menu').toggleClass('hide', true)
+    $('#car').toggleClass('hideafter', true)
     $('#health-menu').toggleClass('hide', true)
+    $('#health').toggleClass('hideafter', true)
 }
 
 function switchToCar() {
     $('#house-menu').toggleClass('hide', true)
+    $('#home').toggleClass('hideafter', true)
     $('#car-menu').toggleClass('hide', false)
+    $('#car').toggleClass('hideafter', false)
     $('#health-menu').toggleClass('hide', true)
+    $('#health').toggleClass('hideafter', true)
 }
 
 function switchToHealth() {
     $('#house-menu').toggleClass('hide', true)
+    $('#home').toggleClass('hideafter', true)
     $('#car-menu').toggleClass('hide', true)
+    $('#car').toggleClass('hideafter', true)
     $('#health-menu').toggleClass('hide', false)
+    $('#health').toggleClass('hideafter', false)
 }
 
 function plumberOrderStart() {
+    $('#order-with-photo').toggleClass('hide', false)
+    $('#main-page').toggleClass('hide', true)
+}
+
+function plumberAfterFormCompleted() {
     window.JSInterface.checkForService('Hydraulik')
 }
 
 function plumberOrderSuccess() {
-    $('#order-with-photo').toggleClass('hide', false)
-    $('#main-page').toggleClass('hide', true)
+// TODO
 }
 
 function popupServiceCost(serviceTuple) {

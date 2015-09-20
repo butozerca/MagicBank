@@ -25,12 +25,12 @@
     </section>
     <section id='main-page'>
         <header>
-            <h2 id='leged-user'>Jan Kowalski</h2>
+            <h2 id='logged-user'></h2>
         </header>
         <nav>
             <div id='home' onclick="switchToHouse()"></div>
-            <div id='health' onclick="switchToHealth()"></div>
-            <div id='car' onclick="switchToCar()"></div>
+            <div id='health' class="hideafter" onclick="switchToHealth()"></div>
+            <div id='car' class="hideafter" onclick="switchToCar()"></div>
         </nav>
         <div id='main-menu'>
             <div id='house-menu'>
@@ -95,6 +95,22 @@ Koszt takiej usługi to:
         </form>
     </section>
     <section id='order-with-map'>
+        <header>
+            <span class='specific-title'>Dowóz paliwa</span>
+            <img src='img/close.svg'>
+        </header>
+        <div class='date-picker'>
+            <span>Realizacja:</span>
+            <span class="date">09/09/09</span>
+            <span class="time">09:09</span>
+        </div>
+        <div id='google-map'>
+        </div>
+        <form>
+            <input type='text' placeholder='Adres'>
+            <div class='button'>Użyj mojej pozycji</div>
+            <div class="button">ZGŁOŚ</div>
+        </form>
     </section>
     <section id='order-confirmation'>
         <header>
