@@ -31,7 +31,7 @@ class DB:
                 '0': Service('0', 'Hydraulik', 'house', 5, 60,
                     "Nasz bank dobrał elitarną ekipę doświadczonych fachowców "
                     "w dziedzinie utrzymywania właściwej wilgotności domóstw. ",
-                    '606-612-309', 400), 
+                    '606-612-309', 400),
                 '1': Service('1', 'Holowanie', 'car', 10, 50,
                     "Szybkie i sprawne lawetowanie samochodów po ulicy i bezdrożach.",
                     '507-705-075', 450),
@@ -53,7 +53,7 @@ class DB:
                 '0': Service('0', 'Hydraulik', 'house', 5, 60,
                     "Nasz bank dobrał elitarną ekipę doświadczonych fachowców "
                     "w dziedzinie utrzymywania właściwej wilgotności domóstw. ",
-                    '606-612-309', 400), 
+                    '606-612-309', 400),
                 '1': Service('1', 'Holowanie', 'car', 10, 50,
                     "Szybkie i sprawne lawetowanie samochodów po ulicy i bezdrożach.",
                     '507-705-075', 450),
@@ -73,6 +73,9 @@ class DB:
                 '3': Service('3', 'Elektryk', 'house', 7, 77,
                     'Porażająco sprawni panowie. Poeci w swej dziedzinie.',
                     '606-666-660', 655),
+                '7': Service('7', 'Dowóz paliwa', 'car', 1, 25,
+                    'Brakło paliwa, a stacji nie ma nigdzie w zasięgu wzroku?'
+                    'To sprawa dla nich', '513-622-721', 240'),
             }),
         }
         self.histories = defaultdict(list)
@@ -82,7 +85,7 @@ class DB:
 
     def get_buyable_services(self, id_):
         return self.users[id_].buyable.values()
-                
+
     def get_user_info(self, id_):
         if id_ in self.users:
             return self.users[id_]
@@ -98,7 +101,7 @@ class DB:
                 user.services[service_id] = copy.deepcopy(new_service)
             else:
                 user.services[service_id].tokens += new_service.tokens
-            #del user.buyable[service_id] 
+            #del user.buyable[service_id]
             user.money -= new_service.price
             return {'ok': 'ok'}
         else:
