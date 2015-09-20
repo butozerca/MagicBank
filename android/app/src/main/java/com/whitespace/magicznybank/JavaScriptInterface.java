@@ -92,6 +92,12 @@ public class JavaScriptInterface {
         }
     }
 
+    @JavascriptInterface
+    public void userLoggedIn() {
+        WebViewHelper.RunJsFunction("fillLoggedUserName",
+                "'" + appContext.currentUser.name + " " + appContext.currentUser.surname +"'");
+    }
+
 
     Calendar myCalendar = Calendar.getInstance();
     TimePickerDialog tpd;

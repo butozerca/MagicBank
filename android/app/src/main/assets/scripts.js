@@ -75,8 +75,14 @@ function LoginError(msg) {
 }
 
 function LoginSuccess() {
+    window.JSInterface.userLoggedIn();
     $("#login-page").addClass('hide');
 }
+
+function fillLoggedUserName(name) {
+    $("#logged-user").html(name)
+}
+
 
 function UpdateTime(value) {
     $("#date-time").html(value);
@@ -195,12 +201,16 @@ function switchToHealth() {
 }
 
 function plumberOrderStart() {
+    $('#order-with-photo').toggleClass('hide', false)
+    $('#main-page').toggleClass('hide', true)
+}
+
+function plumberAfterFormCompleted() {
     window.JSInterface.checkForService('Hydraulik')
 }
 
 function plumberOrderSuccess() {
-    $('#order-with-photo').toggleClass('hide', false)
-    $('#main-page').toggleClass('hide', true)
+// TODO
 }
 
 function popupServiceCost(serviceTuple) {
