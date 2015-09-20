@@ -249,7 +249,7 @@ input[type=button] {
   text-align: center;
 }
 
-.center-center, #login-page form, #order-with-photo .popup-alert > div {
+.center-center, #login-page form, #order-with-photo .popup-alert > div, .timer-icon {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -701,4 +701,68 @@ section {
 #order-with-photo .button:nth-of-type(2) {
   background-color: #948E65;
   color: #fff;
+}
+
+.timer-icon {
+  background-image: url(img/timer.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100px;
+  height: 100px;
+}
+
+.timer-icon > div {
+  position: absolute;
+  bottom: -20px;
+  left: 23px;
+  font-family: Roboto-Medium;
+}
+
+#order-confirmation header {
+  position: relative;
+  background: #948E65;
+  height: 72px;
+}
+
+#order-confirmation header img {
+  line-height: 72px;
+  float: right;
+  margin-top: 28px;
+  margin-right: 25px;
+}
+
+#order-confirmation > p {
+  width: 76%;
+  margin: 0 auto;
+  margin-top: 70px;
+}
+
+#order-confirmation form > input, #order-confirmation form > .button {
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto;
+  border: none;
+}
+
+#order-confirmation form input {
+  width: 90%;
+  height: 42px;
+  margin-bottom: 22px;
+  border-bottom: solid 2px #948E65;
+  padding: 5px 2px;
+}
+
+#order-confirmation .button {
+  width: 85%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 1rem;
+}
+
+#order-confirmation .button:nth-of-type(1) {
+  background-color: #948E65;
+  color: #fff;
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
 }
