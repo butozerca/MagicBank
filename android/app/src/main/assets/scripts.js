@@ -234,6 +234,7 @@ function readMarkerLocation() {
 function revertToStartingLocation() {
     marker.setPosition(startingLocation)
     map.setCenter(startingLocation)
+    SetLocationCoords2(startingLocation.lat(), startingLocation.lng());
 }
 
 function ShowError(msg) {
