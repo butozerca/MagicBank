@@ -35,12 +35,6 @@ public class JavaScriptInterface {
     }
 
     @JavascriptInterface
-    public void showToast(String message) {
-        Toast toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    @JavascriptInterface
     public void takePhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -116,7 +110,6 @@ public class JavaScriptInterface {
                         myCalendar.set(Calendar.HOUR, hourOfDay);
                         myCalendar.set(Calendar.MINUTE, minute);
 
-
                         StringBuilder result = new StringBuilder("<span class=\"date\" id=\"date\">");
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
                         result.append(sdf.format(myCalendar.getTime()));
@@ -125,7 +118,6 @@ public class JavaScriptInterface {
                         result.append(sdf.format(myCalendar.getTime()));
                         result.append("</span>");
 
-                        Log.d("KROL", result.toString());
                         WebViewHelper.RunJsFunction("UpdateTime", "'" + result.toString() + "'");
                     }
                 }, myCalendar.get(Calendar.HOUR), myCalendar.get(Calendar.MINUTE), true);
@@ -153,6 +145,8 @@ public class JavaScriptInterface {
 
     @JavascriptInterface
     public void login(String data) {
+        User user;
+
         if (data == null || data.length() == 0) {
             WebViewHelper.LoginError("Brak danych logowania");
             return;
@@ -172,8 +166,6 @@ public class JavaScriptInterface {
             return;
         }
 
-        User user;
-
         try {
             String userJSon = ServerConnectionHelper.downloadUserJSon(login, pass);
             if (userJSon.length() == 0)
@@ -187,11 +179,11 @@ public class JavaScriptInterface {
             if(servicesJSon.length() == 0)
                 throw new Exception("Unknown error - getting user services");
 
-            String buyableservicesJSon = ServerConnectionHelper.downloadBuyableservicesJSon(user);
-            if(buyableservicesJSon.length() == 0)
+            String buyableServicesJSon = ServerConnectionHelper.downloadBuyableservicesJSon(user);
+            if(buyableServicesJSon.length() == 0)
                 throw new Exception("Unknown error - getting user services");
 
-            JSonHelper.addServicesForUser(user, servicesJSon, buyableservicesJSon);
+            JSonHelper.addServicesForUser(user, servicesJSon, buyableServicesJSon);
 
             LoginOutput(user);
         }
@@ -236,7 +228,6 @@ public class JavaScriptInterface {
             }
         }
     }
-
 
     private void LoginOutput(User user) {
         appContext.currentUser = user;
