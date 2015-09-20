@@ -45,6 +45,18 @@ function init() {
      $("#popup-alert-ok").click(function() {
         $("#popup-alert").addClass('hide');
         $("#order-with-photo").addClass('hide');
+        $("#order-confirmation").removeClass('hide');
+        timerValue = 5*60;
+     });
+
+     $("#plumber-close").click(function() {
+        $("#order-with-photo").addClass('hide');
+        $("#main-page").removeClass('hide');
+     });
+
+     $("#confirmation-ok").click(function() {
+        $("#order-confirmation").addClass('hide');
+         $("#main-page").removeClass('hide');
      });
 
     geocoder = new google.maps.Geocoder();
@@ -77,6 +89,7 @@ function LoginError(msg) {
 function LoginSuccess() {
     window.JSInterface.userLoggedIn();
     $("#login-page").addClass('hide');
+    $("#main-page").removeClass('hide');
 }
 
 function fillLoggedUserName(name) {
