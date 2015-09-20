@@ -117,3 +117,22 @@ function addressToMarker() {
       }
     });
 }
+
+function switchToHouse() {
+    $('#home-menu').toggleClass('hide', false)
+    $('#car-menu').toggleClass('hide', true)
+    $('#health-menu').toggleClass('hide', true)
+}
+
+function switchToCar() {
+    $('#home-menu').toggleClass('hide', true)
+    $('#car-menu').toggleClass('hide', false)
+    $('#health-menu').toggleClass('hide', true)
+}
+
+function switchToHealth() {
+    $('#home-menu').toggleClass('hide', true)
+    $('#car-menu').toggleClass('hide', true)
+    $('#health-menu').toggleClass('hide', false)
+}
+

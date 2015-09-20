@@ -5,22 +5,18 @@
     <title>Magiczny Bank</title>
     <meta name="description" content="Magiczny Bank" />
 
-    <script src="jquery-2.1.4.js"></script>
-    <script src="scripts.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="msapplication-tap-highlight" content="no" />
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body onload="init();">
+<body>
     <section id='login-page'>
         <form>
             <h1>Logowanie</h1>
             <input id='login-username' type='text' placeholder="Login">
             <input id='login-password' type="password" placeholder="Hasło">
-            <div id='login-button' class="button">ZALOGUJ</div>
-            <div id='login-error'></div>
+            <button id='login-button'>ZALOGUJ</button>
         </form>
     </section>
     <section id='main-page'>
@@ -53,23 +49,14 @@
         </div>
     </section>
     <section id='order-with-photo'>
-        <div class="popup-alert">
-            <div>
-                <h3>Informacja o kosztach</h3>
-                <p>
-                    Twój pakiet pozwala na wykorzystanie 4 zgłoszeń. Pozostało ich 3. Czy chesz je wykorzystać? 
-                </p>
-                <span>ANULUJ</span>
-                <span>ZGŁOŚ</span>
-            </div>
-        </div>
         <header>
             <span class='specific-title'>Hydraulik</span>
             <img src='img/close.svg'>
         </header>
-        <div id='date-picker' class="date-picker">
+        <div class='date-picker'>
             <span>Realizacja:</span>
-            <span class="date-time" id='date-time'>09/09/09 09:09</span>
+            <span class="date">09/09/09</span>
+            <span class="time">09:09</span>
         </div>
         <div id='take-photo'>
             <span>Załącz zdjęcie</span>
@@ -77,8 +64,8 @@
         <form>
             <input type='text' placeholder='Opis problemu'>
             <input type='text' placeholder='Adres'>
-            <div class='button'>Użyj mojej pozycji</div>
-            <div class="button">ZGŁOŚ</div>
+            <button>Użyj mojej pozycji</button>
+            <button>ZGŁOŚ</button>
         </form>
     </section>
     <section id='order-with-map'>
