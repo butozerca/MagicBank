@@ -15,20 +15,18 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body onload="init();">
+<body>
     <section id='login-page'>
         <form>
             <h1>Logowanie</h1>
-            <input id='login-username' type='text' placeholder="Login" value="soperkrul">
-            <input id='login-password' type="password" placeholder="Hasło" value="Dupa.8">
-            <div id='login-button'>ZALOGUJ</div>
-            <div id='login-error'></div>
+            <input id='login-username' type='text' placeholder="Login">
+            <input id='login-password' type="password" placeholder="Hasło">
+            <div id='login-button' class="button">ZALOGUJ</div>
         </form>
-
     </section>
     <section id='main-page'>
         <header>
-            <h2>Jan Kowalski</h2>
+            <h2 id='leged-user'>Jan Kowalski</h2>
         </header>
         <nav>
             <div id='home'></div>
@@ -36,7 +34,7 @@
             <div id='car'></div>
         </nav>
         <div id='main-menu'>
-            <div id='home-menu' class="hide">
+            <div id='house-menu' class="hide">
                 <div class="plumber">Hydraulik</div>
                 <div class="electrician">Elektryk</div>
                 <div class="hood">Awaria RTV/AGD</div>
@@ -56,8 +54,19 @@
         </div>
     </section>
     <section id='order-with-photo'>
+        <div class="popup-alert">
+            <div>
+                <h3>Informacja o kosztach</h3>
+                <p>
+                    Twój pakiet pozwala na wykorzystanie 4 zgłoszeń. Pozostało ich 3. Czy chesz je wykorzystać? 
+                </p>
+                <span>ANULUJ</span>
+                <span>ZGŁOŚ</span>
+            </div>
+        </div>
         <header>
-            <span class='specific-title'></span>
+            <span class='specific-title'>Hydraulik</span>
+            <img src='img/close.svg'>
         </header>
         <div class='date-picker'>
             <span>Realizacja:</span>
@@ -70,8 +79,8 @@
         <form>
             <input type='text' placeholder='Opis problemu'>
             <input type='text' placeholder='Adres'>
-            <button>Użyj mojej pozycji</button>
-            <button>ZGŁOŚ</button>
+            <div class='button'>Użyj mojej pozycji</div>
+            <div class="button">ZGŁOŚ</div>
         </form>
     </section>
     <section id='order-with-map'>
