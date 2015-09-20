@@ -31,7 +31,20 @@ function init() {
         window.JSInterface.UseCurrentLocation();
     });
 
-     geocoder = new google.maps.Geocoder();
+    $("#commit").click(function() {
+        $("#popup-alert").removeClass('hide');
+    });
+
+     $("#popup-alert-cancel").click(function() {
+        $("#popup-alert").addClass('hide');
+     });
+
+     $("#popup-alert-ok").click(function() {
+        $("#popup-alert").addClass('hide');
+        $("#order-with-photo").addClass('hide');
+     });
+
+    geocoder = new google.maps.Geocoder();
 }
 
 

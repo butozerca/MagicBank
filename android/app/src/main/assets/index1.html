@@ -53,14 +53,14 @@
         </div>
     </section>
     <section id='order-with-photo'>
-        <div class="popup-alert hide">
+        <div class="popup-alert hide" id='popup-alert'>
             <div>
                 <h3>Informacja o kosztach</h3>
                 <p>
                     Twój pakiet pozwala na wykorzystanie 4 zgłoszeń. Pozostało ich 3. Czy chesz je wykorzystać? 
                 </p>
-                <span>ANULUJ</span>
-                <span>ZGŁOŚ</span>
+                <span id='popup-alert-cancel'>ANULUJ</span>
+                <span id='popup-alert-ok'>ZGŁOŚ</span>
             </div>
         </div>
         <div class="popup-alert extra-cash hide">
@@ -91,7 +91,7 @@ Koszt takiej usługi to:
             <input type='text' id='problem-description' placeholder='Opis problemu'>
             <input type='text' id='address' placeholder='Adres'>
             <div class='button' id='use-location'>Użyj mojej pozycji</div>
-            <div class="button">ZGŁOŚ</div>
+            <div class="button" id='commit'>ZGŁOŚ</div>
         </form>
     </section>
     <section id='order-with-map'>
