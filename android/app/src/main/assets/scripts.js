@@ -2,6 +2,9 @@ var marker;
 var map;
 var geocoder;
 
+var timerInterval;
+var timerValue;
+
 function init() {
     $("#login-button").click(function() {
         console.log("dupa");
@@ -45,8 +48,27 @@ function init() {
      });
 
     geocoder = new google.maps.Geocoder();
+
+    timerValue = 10*60;
+    timerInterval = setInterval(function () { timer() }, 1000);
 }
 
+function timer() {
+    timerValue -= 1;
+
+    if(timerValue <= 0) {
+        timerValue = 0;
+        window.clearInterval(timerInterval);
+    }
+
+    var minutes = parseInt(timerValue / 60);
+    if(minutes < 10)
+        minutes = "0" + minutes;
+    var seconds = timerValue % 60;
+    if(seconds < 10)
+        seconds = "0" + seconds;
+    $("#timer-text-clock").html(minutes + ":" + seconds);
+}
 
 function LoginError(msg) {
     $("#login-error").html(msg);
