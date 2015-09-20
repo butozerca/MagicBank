@@ -147,20 +147,29 @@ function addressToMarker() {
 
 function switchToHouse() {
     $('#house-menu').toggleClass('hide', false)
+    $('#home').toggleClass('hideafter', false)
     $('#car-menu').toggleClass('hide', true)
+    $('#car').toggleClass('hideafter', true)
     $('#health-menu').toggleClass('hide', true)
+    $('#health').toggleClass('hideafter', true)
 }
 
 function switchToCar() {
     $('#house-menu').toggleClass('hide', true)
+    $('#home').toggleClass('hideafter', true)
     $('#car-menu').toggleClass('hide', false)
+    $('#car').toggleClass('hideafter', false)
     $('#health-menu').toggleClass('hide', true)
+    $('#health').toggleClass('hideafter', true)
 }
 
 function switchToHealth() {
     $('#house-menu').toggleClass('hide', true)
+    $('#home').toggleClass('hideafter', true)
     $('#car-menu').toggleClass('hide', true)
+    $('#car').toggleClass('hideafter', true)
     $('#health-menu').toggleClass('hide', false)
+    $('#health').toggleClass('hideafter', false)
 }
 
 function plumberOrderStart() {
