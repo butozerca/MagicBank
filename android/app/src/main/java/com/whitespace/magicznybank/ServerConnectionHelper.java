@@ -23,6 +23,9 @@ public class ServerConnectionHelper {
         return getData("{\"method\":\"list_buyable_services\"," + user.LoginDataJSon() + "}");
     }
 
+    public static String requestLoan(User user, double amount) throws Exception {
+        return getData("{\"method\":\"request_loan\"," + user.LoginDataJSon() + ",\"amount\":" + amount + "}");
+    }
     private static String getData(String msg) throws Exception {
         URL url;
         StringBuilder result = new StringBuilder();

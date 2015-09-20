@@ -194,6 +194,18 @@ public class JavaScriptInterface {
     }
 
     @JavascriptInterface
+    public void requestLoan(double amount) {
+        try {
+            //ServerConnectionHelper.requestLoan(appContext.currentUser, amount);
+            appContext.currentUser.money += amount;
+            appContext.currentUser.loan += amount;
+            userLoggedIn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @JavascriptInterface
     public void checkForService(String serviceName) {
         boolean success = false;
         for (Service svc : appContext.currentUser.services) {
